@@ -1,0 +1,11 @@
+Date: 30/10/2025
+Time: 18:58
+Phone Number: +256780559481
+Message: Soko product highlight (top selection):REDMI A3 6GB RAM 128GB ROM 5000 mAh BATTERYPrice: 495,000/=Link: https://soko.sanaa.ug/api/v2/products/2591
+--------------------
+Date: 30/10/2025
+Time: 19:13
+Phone Number: +256780559481
+Image: /var/folders/_3/71hwryvx7gl7xm_n6b5kd2yr0000gn/T/tmpsllforft.jpg
+Caption: Soko product highlight (top selection):REDMI A3 6GB RAM 128GB ROM 5000 mAh BATTERYPrice: 495,000/=Link: https://soko.sanaa.ug/api/v2/products/2591
+--------------------

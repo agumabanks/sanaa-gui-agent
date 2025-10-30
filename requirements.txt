@@ -1,0 +1,36 @@
+# Unified Automation Agent - Comprehensive Requirements
+# Production-ready dependencies for all automation features
+
+# ============= CORE AUTOMATION =============
+pyautogui>=0.9.53              # Screen control and automation
+schedule>=1.2.0                # Task scheduling
+Pillow>=9.0.0                  # Image processing
+
+# ============= BROWSER AUTOMATION =============
+selenium>=4.15.0               # Web browser automation
+webdriver-manager>=4.0.0       # Automatic ChromeDriver management
+opencv-python>=4.8.0           # Computer vision for image detection
+numpy>=1.24.0                  # Numerical computing
+
+# ============= WHATSAPP AUTOMATION =============
+pywhatkit>=5.4                 # WhatsApp messaging support
+
+# ============= SYSTEM UTILITIES =============
+psutil>=5.9.0                  # System and process utilities
+
+# ============= SECURITY & ENCRYPTION =============
+cryptography>=41.0.0           # Encryption and security
+
+# ============= HTTP & NOTIFICATIONS =============
+requests>=2.28.0               # HTTP requests for link checking
+plyer>=2.1.0                   # System notifications
+
+# ============= DEVELOPMENT & TESTING =============
+pytest>=7.0.0                  # Testing framework
+pytest-cov>=4.0.0              # Test coverage
+pytest-asyncio>=0.21.0         # Async test support
+
+# ============= OPTIONAL ADVANCED FEATURES =============
+# Uncomment to enable:
+# speechrecognition>=3.10.0    # Voice command recognition
+# pyttsx3>=2.90                # Text-to-speech synthesis
