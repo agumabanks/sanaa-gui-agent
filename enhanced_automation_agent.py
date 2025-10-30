@@ -13,12 +13,14 @@ import sys
 import threading
 import time
 import traceback
+import uuid
 from dataclasses import dataclass, field
 from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any, Callable, Dict, List, Optional, Tuple
 import psutil
 from cryptography.fernet import Fernet
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 # Import base automation agent
 from automation_agent import AutomationAgent, AutomationTask, SafetyLevel, TaskStatus, TaskResult
@@ -75,6 +77,28 @@ class BulkOperationConfig:
     continue_on_error: bool = True
 
 
+@dataclass
+class GovernanceConfig:
+    """Thresholds for adaptive governance."""
+
+    max_cpu_percent: float = 85.0
+    max_memory_mb: float = 1024.0
+    max_error_rate: float = 0.25
+    max_errors: int = 5
+    cooldown_seconds: float = 30.0
+
+
+@dataclass
+class GovernanceState:
+    """Runtime governance state used to adapt automation behaviour."""
+
+    throttle_multiplier: float = 1.0
+    concurrency_scale: float = 1.0
+    paused_until: Optional[datetime] = None
+    escalation_required: bool = False
+    last_throttle: Optional[datetime] = None
+
+
 class EnhancedAutomationAgent(AutomationAgent):
     """
     Enhanced Automation Agent with Selenium integration and production features.
@@ -97,7 +121,9 @@ class EnhancedAutomationAgent(AutomationAgent):
         headless_mode: bool = False,
         window_size: Tuple[int, int] = (1920, 1080),
         timeout: int = 30,
-        retry_attempts: int = 3
+        retry_attempts: int = 3,
+        state_path: Optional[str] = None,
+        governance_config: Optional[GovernanceConfig] = None
     ):
         """
         Initialize enhanced automation agent.
@@ -125,17 +151,338 @@ class EnhancedAutomationAgent(AutomationAgent):
         # Performance monitoring
         self.performance_metrics = PerformanceMetrics()
         self.monitoring_enabled = False
-        
+
         # Credentials encryption
         self.encryption_key: Optional[bytes] = None
         self.cipher_suite: Optional[Fernet] = None
         self.credentials: Dict[str, str] = {}
-        
-        # Bulk operation tracking
-        self.bulk_operations: List[Dict[str, Any]] = []
-        
+
+        # Governance configuration/state
+        self.governance_config = governance_config or GovernanceConfig()
+        self.governance_state = GovernanceState()
+
+        # Persistent state management
+        default_state_dir = Path("automation_logs")
+        default_state_dir.mkdir(parents=True, exist_ok=True)
+        self.state_path = Path(state_path) if state_path else default_state_dir / "persistent_state.json"
+        self._state_lock = threading.Lock()
+        self._persistent_state: Dict[str, Any] = {}
+        self._worker_thread: Optional[threading.Thread] = None
+        self._worker_stop_event = threading.Event()
+        self._pending_event = threading.Event()
+
+        # Load state and kick off monitoring/worker
+        self._load_persistent_state()
+        self.start_performance_monitoring()
+        self._start_bulk_worker()
+
         self.logger.info("Enhanced Automation Agent initialized")
-    
+
+    # ==================== Persistent State Management ====================
+
+    def _load_persistent_state(self):
+        """Load persisted automation state from disk."""
+        with self._state_lock:
+            raw_state: Dict[str, Any] = {}
+            if self.state_path.exists():
+                try:
+                    with open(self.state_path, "r", encoding="utf-8") as handle:
+                        raw_state = json.load(handle)
+                except Exception as exc:
+                    self.logger.error(f"Failed to load persistent state: {exc}")
+
+            self._persistent_state = {
+                "operations": raw_state.get("operations", []),
+                "completed": raw_state.get("completed", []),
+                "task_results": raw_state.get("task_results", [])
+            }
+
+            # Normalise operations for safe restart
+            now_iso = datetime.utcnow().isoformat()
+            for operation in self._persistent_state["operations"]:
+                operation.setdefault("id", str(uuid.uuid4()))
+                operation.setdefault("status", "pending")
+                operation.setdefault("attempts", 0)
+                operation.setdefault("max_attempts", 1)
+                operation.setdefault("retry_delay", 0.0)
+                operation.setdefault("next_run", now_iso)
+                if operation.get("status") == "in_progress":
+                    # Treat in-flight operations as pending so they can resume
+                    operation["status"] = "pending"
+                    operation["next_run"] = now_iso
+
+            # Hydrate task history into memory
+            self.task_results = []
+            for result_dict in self._persistent_state["task_results"]:
+                try:
+                    self.task_results.append(self._task_result_from_dict(result_dict))
+                except Exception as exc:
+                    self.logger.debug(f"Skipping corrupt task history entry: {exc}")
+
+            self._save_state_locked()
+
+        if self._has_pending_operations():
+            self._pending_event.set()
+
+    def _save_state_locked(self):
+        """Persist the current state to disk. Caller must hold the state lock."""
+        try:
+            tmp_path = self.state_path.with_suffix(".tmp")
+            with open(tmp_path, "w", encoding="utf-8") as handle:
+                json.dump(self._persistent_state, handle, indent=2)
+            tmp_path.replace(self.state_path)
+        except Exception as exc:
+            self.logger.error(f"Failed to save persistent state: {exc}")
+
+    def _save_state(self):
+        """Thread-safe wrapper for saving state."""
+        with self._state_lock:
+            self._save_state_locked()
+
+    def _has_pending_operations(self) -> bool:
+        with self._state_lock:
+            for operation in self._persistent_state.get("operations", []):
+                if operation.get("status") == "pending":
+                    return True
+        return False
+
+    def _start_bulk_worker(self):
+        """Start background worker that drives persisted bulk operations."""
+        if self._worker_thread and self._worker_thread.is_alive():
+            return
+
+        self._worker_stop_event.clear()
+        self._worker_thread = threading.Thread(
+            target=self._bulk_worker_loop,
+            name="EnhancedAgentBulkWorker",
+            daemon=True
+        )
+        self._worker_thread.start()
+
+        if self._has_pending_operations():
+            self._pending_event.set()
+
+    def _bulk_worker_loop(self):
+        """Background worker loop that dispatches persisted operations."""
+        while not self._worker_stop_event.is_set():
+            if self._operations_paused():
+                self._sleep_with_stop(1.0)
+                continue
+
+            ready_groups = self._collect_ready_operations()
+            if not ready_groups:
+                # Wait until new work is queued or stop requested
+                self._pending_event.wait(timeout=1.0)
+                self._pending_event.clear()
+                continue
+
+            for group in ready_groups:
+                if self._worker_stop_event.is_set():
+                    break
+
+                config = group["config"]
+                operation_ids = group["operation_ids"]
+                if not operation_ids:
+                    continue
+
+                effective_concurrency = max(
+                    1,
+                    int(max(1, config.get("max_concurrent", 1)) * self.governance_state.concurrency_scale)
+                )
+                batch_ids = operation_ids[:effective_concurrency]
+                self._mark_operations_in_progress(batch_ids)
+
+                # Capture snapshot for execution outside lock
+                snapshots = [self._get_operation_snapshot(op_id) for op_id in batch_ids]
+
+                with ThreadPoolExecutor(max_workers=len(batch_ids)) as executor:
+                    future_map = {
+                        executor.submit(self._execute_persistent_operation, snapshot): snapshot["id"]
+                        for snapshot in snapshots
+                    }
+                    for future in as_completed(future_map):
+                        op_id = future_map[future]
+                        success = False
+                        error_msg: Optional[str] = None
+                        try:
+                            success, error_msg = future.result()
+                        except Exception as exc:
+                            error_msg = str(exc)
+                        self._handle_operation_result(op_id, success, error_msg)
+
+                delay = config.get("delay_between_operations", 0.0) * self.governance_state.throttle_multiplier
+                if delay > 0:
+                    self._sleep_with_stop(delay)
+
+    def _sleep_with_stop(self, seconds: float):
+        """Sleep in short intervals while honouring stop requests."""
+        end_time = time.time() + max(0.0, seconds)
+        while not self._worker_stop_event.is_set() and time.time() < end_time:
+            time.sleep(min(0.5, end_time - time.time()))
+
+    def _operations_paused(self) -> bool:
+        paused_until = self.governance_state.paused_until
+        if not paused_until:
+            return False
+        if datetime.utcnow() >= paused_until:
+            self.governance_state.paused_until = None
+            return False
+        return True
+
+    def _collect_ready_operations(self) -> List[Dict[str, Any]]:
+        """Return grouped operations that are ready for execution."""
+        ready: Dict[str, Dict[str, Any]] = {}
+        save_needed = False
+        now = datetime.utcnow()
+
+        with self._state_lock:
+            operations = self._persistent_state.get("operations", [])
+            for operation in operations:
+                status = operation.get("status", "pending")
+                if status != "pending":
+                    continue
+
+                attempts = operation.get("attempts", 0)
+                max_attempts = operation.get("max_attempts", 1)
+                if attempts >= max_attempts:
+                    operation["status"] = "failed"
+                    operation["last_error"] = operation.get("last_error") or "Maximum retries exceeded"
+                    self._persistent_state.setdefault("completed", []).append({
+                        "id": operation["id"],
+                        "status": "failed",
+                        "completed_at": datetime.utcnow().isoformat()
+                    })
+                    save_needed = True
+                    continue
+
+                next_run_raw = operation.get("next_run")
+                next_run = datetime.fromisoformat(next_run_raw) if next_run_raw else now
+                if next_run > now:
+                    continue
+
+                config = operation.get("config", {})
+                key = json.dumps(config, sort_keys=True)
+                entry = ready.setdefault(key, {"config": config, "operation_ids": []})
+                entry["operation_ids"].append(operation["id"])
+
+            if save_needed:
+                self._save_state_locked()
+
+        return list(ready.values())
+
+    def _mark_operations_in_progress(self, operation_ids: List[str]):
+        with self._state_lock:
+            for op in self._persistent_state.get("operations", []):
+                if op["id"] in operation_ids:
+                    op["status"] = "in_progress"
+                    op["attempts"] = op.get("attempts", 0) + 1
+                    op["last_error"] = None
+            self._save_state_locked()
+
+    def _get_operation_snapshot(self, operation_id: str) -> Dict[str, Any]:
+        with self._state_lock:
+            for operation in self._persistent_state.get("operations", []):
+                if operation["id"] == operation_id:
+                    return dict(operation)
+        raise KeyError(f"Operation not found: {operation_id}")
+
+    def _execute_persistent_operation(self, operation: Dict[str, Any]) -> Tuple[bool, Optional[str]]:
+        """Execute a persisted operation snapshot."""
+        try:
+            if operation.get("type") == "bulk_message":
+                payload = operation.get("payload", {})
+                phone = payload.get("phone")
+                message = payload.get("message")
+                if not phone or not message:
+                    raise ValueError("Bulk message payload missing phone or message")
+                success = self.send_whatsapp_message_selenium(
+                    phone_number=phone,
+                    message=message,
+                    retry_on_failure=True
+                )
+                if not success:
+                    return False, "Send function returned False"
+                return True, None
+
+            raise ValueError(f"Unsupported operation type: {operation.get('type')}")
+        except Exception as exc:
+            return False, str(exc)
+
+    def _handle_operation_result(self, operation_id: str, success: bool, error_msg: Optional[str]):
+        should_retry = False
+        with self._state_lock:
+            for operation in self._persistent_state.get("operations", []):
+                if operation["id"] != operation_id:
+                    continue
+
+                config = operation.get("config", {})
+                if success:
+                    operation["status"] = "completed"
+                    operation["completed_at"] = datetime.utcnow().isoformat()
+                    operation["last_error"] = None
+                    self._persistent_state.setdefault("completed", []).append({
+                        "id": operation_id,
+                        "status": "completed",
+                        "completed_at": operation["completed_at"],
+                        "payload": operation.get("payload", {})
+                    })
+                else:
+                    operation["last_error"] = error_msg
+                    max_attempts = operation.get("max_attempts", 1)
+                    attempts = operation.get("attempts", 0)
+                    continue_on_error = config.get("continue_on_error", True)
+                    if attempts < max_attempts and continue_on_error:
+                        operation["status"] = "pending"
+                        delay_seconds = operation.get("retry_delay", 0.0) * max(1.0, self.governance_state.throttle_multiplier)
+                        operation["next_run"] = (datetime.utcnow() + timedelta(seconds=delay_seconds)).isoformat()
+                        should_retry = True
+                    else:
+                        operation["status"] = "failed"
+                        self._persistent_state.setdefault("completed", []).append({
+                            "id": operation_id,
+                            "status": "failed",
+                            "completed_at": datetime.utcnow().isoformat(),
+                            "error": error_msg,
+                            "payload": operation.get("payload", {})
+                        })
+                        if not continue_on_error:
+                            self._escalate_issue(
+                                f"Operation {operation_id} failed with continue_on_error disabled"
+                            )
+
+                break
+
+            self._save_state_locked()
+
+        if should_retry:
+            self._pending_event.set()
+
+        self.record_operation(success=success)
+
+    def _task_result_from_dict(self, data: Dict[str, Any]) -> TaskResult:
+        """Rehydrate TaskResult from persisted representation."""
+        start_time = datetime.fromisoformat(data["start_time"]) if data.get("start_time") else datetime.utcnow()
+        end_time = datetime.fromisoformat(data["end_time"]) if data.get("end_time") else None
+        status_value = data.get("status", TaskStatus.FAILED.value)
+        status = TaskStatus(status_value) if isinstance(status_value, str) else TaskStatus(status_value.value)
+        return TaskResult(
+            task_id=data.get("task_id", "unknown"),
+            status=status,
+            start_time=start_time,
+            end_time=end_time,
+            error=data.get("error"),
+            output=data.get("output")
+        )
+
+    def _store_task_result(self, result: TaskResult):
+        """Persist task execution result for restart recovery."""
+        with self._state_lock:
+            self._persistent_state.setdefault("task_results", [])
+            self._persistent_state["task_results"].append(result.to_dict())
+            # Keep history reasonable by limiting to last 1000 entries
+            if len(self._persistent_state["task_results"]) > 1000:
+                self._persistent_state["task_results"] = self._persistent_state["task_results"][-1000:]
+            self._save_state_locked()
     # ==================== Selenium WebDriver Management ====================
     
     def initialize_driver(self, headless: Optional[bool] = None) -> bool:
@@ -183,6 +530,12 @@ class EnhancedAutomationAgent(AutomationAgent):
     
     def cleanup(self):
         """Cleanup resources including WebDriver and schedulers."""
+        self._worker_stop_event.set()
+        self._pending_event.set()
+        if self._worker_thread and self._worker_thread.is_alive():
+            self._worker_thread.join(timeout=5)
+        self._save_state()
+
         if self.driver:
             try:
                 self.driver.quit()
@@ -320,66 +673,84 @@ class EnhancedAutomationAgent(AutomationAgent):
         config: Optional[BulkOperationConfig] = None
     ) -> Dict[str, Any]:
         """
-        Send messages to multiple contacts with rate limiting.
-        
+        Send messages to multiple contacts with persistent queuing.
+
         Args:
             contacts: List of contact dicts with 'phone', 'name', 'message'
             config: Bulk operation configuration
-            
+
         Returns:
-            Results dictionary with success/failure counts
+            Summary of queued operations and current status counts
         """
         config = config or BulkOperationConfig()
-        
-        results = {
-            "total": len(contacts),
-            "successful": 0,
-            "failed": 0,
-            "errors": []
-        }
-        
-        self.logger.info(f"Starting bulk message send to {len(contacts)} contacts")
-        
-        for i, contact in enumerate(contacts):
-            try:
+        enqueued = 0
+        now_iso = datetime.utcnow().isoformat()
+
+        with self._state_lock:
+            operations = self._persistent_state.setdefault("operations", [])
+            for contact in contacts:
                 phone = contact.get("phone")
                 message = contact.get("message")
                 name = contact.get("name", "Unknown")
-                
+
                 if not phone or not message:
                     self.logger.warning(f"Skipping contact {name}: missing phone or message")
-                    results["failed"] += 1
                     continue
-                
-                self.logger.info(f"Sending message to {name} ({i+1}/{len(contacts)})")
-                
-                success = self.send_whatsapp_message_selenium(
-                    phone_number=phone,
-                    message=message,
-                    retry_on_failure=True
-                )
-                
-                if success:
-                    results["successful"] += 1
-                else:
-                    results["failed"] += 1
-                    results["errors"].append(f"{name} ({phone})")
-                
-                # Rate limiting
-                if i < len(contacts) - 1:
-                    time.sleep(config.delay_between_operations)
-                
-            except Exception as e:
-                self.logger.error(f"Error sending to {contact.get('name', 'Unknown')}: {e}")
-                results["failed"] += 1
-                results["errors"].append(f"{contact.get('name', 'Unknown')}: {str(e)}")
-                self.record_operation(success=False)
-                
-                if not config.continue_on_error:
-                    break
-        
-        self.logger.info(f"Bulk send complete: {results['successful']}/{results['total']} successful")
-        return results
+
+                operation = {
+                    "id": str(uuid.uuid4()),
+                    "type": "bulk_message",
+                    "payload": {
+                        "phone": phone,
+                        "message": message,
+                        "name": name
+                    },
+                    "status": "pending",
+                    "attempts": 0,
+                    "max_attempts": max(1, config.retry_attempts),
+                    "retry_delay": max(0.0, config.retry_delay),
+                    "next_run": now_iso,
+                    "config": {
+                        "max_concurrent": max(1, config.max_concurrent),
+                        "delay_between_operations": max(0.0, config.delay_between_operations),
+                        "continue_on_error": config.continue_on_error
+                    },
+                    "created_at": now_iso
+                }
+
+                operations.append(operation)
+                enqueued += 1
+
+            if enqueued:
+                self._save_state_locked()
+
+        if enqueued:
+            self.logger.info(f"Queued {enqueued} bulk WhatsApp operations")
+            self._pending_event.set()
+
+        summary = self.get_bulk_operation_summary()
+        summary.update({
+            "enqueued": enqueued,
+            "config": {
+                "max_concurrent": config.max_concurrent,
+                "delay_between_operations": config.delay_between_operations,
+                "retry_attempts": config.retry_attempts,
+                "retry_delay": config.retry_delay
+            }
+        })
+        return summary
+
+    def get_bulk_operation_summary(self) -> Dict[str, Any]:
+        """Return counts of bulk operation states."""
+        with self._state_lock:
+            counters = {"pending": 0, "in_progress": 0, "completed": 0, "failed": 0}
+            for operation in self._persistent_state.get("operations", []):
+                status = operation.get("status", "pending")
+                counters[status] = counters.get(status, 0) + 1
+
+            counters["total"] = sum(counters.values())
+            counters["escalation_required"] = self.governance_state.escalation_required
+        return counters
     
     def schedule_whatsapp(
         self,
@@ -429,6 +800,12 @@ class EnhancedAutomationAgent(AutomationAgent):
         task_id = self.add_task(task)
         self.logger.info(f"WhatsApp scheduled daily at {time_str} for {phone_number}")
         return task_id
+
+    def _execute_task(self, task_id: str) -> TaskResult:  # type: ignore[override]
+        """Execute task and persist the result for recovery."""
+        result = super()._execute_task(task_id)
+        self._store_task_result(result)
+        return result
     
     # ==================== Performance Monitoring ====================
     
@@ -464,12 +841,110 @@ class EnhancedAutomationAgent(AutomationAgent):
         return self.performance_metrics.to_dict()
 
     def record_operation(self, success: bool):
-        """Update performance counters when monitoring is enabled."""
+        """Update performance counters and trigger adaptive governance."""
         if not self.monitoring_enabled:
-            return
+            self.start_performance_monitoring()
+
         self.performance_metrics.operations_count += 1
         if not success:
             self.performance_metrics.errors_count += 1
+
+        self._update_metrics()
+        self._evaluate_governance()
+
+    def _update_metrics(self):
+        """Refresh CPU, memory and duration metrics."""
+        try:
+            process = psutil.Process()
+            self.performance_metrics.memory_mb = process.memory_info().rss / 1024 / 1024
+            cpu_percent = process.cpu_percent(interval=None)
+            if cpu_percent == 0.0:
+                cpu_percent = process.cpu_percent(interval=0.1)
+            self.performance_metrics.cpu_percent = cpu_percent
+        except Exception as exc:
+            self.logger.debug(f"Failed to update process metrics: {exc}")
+
+        self.performance_metrics.duration_seconds = (
+            datetime.now() - self.performance_metrics.start_time
+        ).total_seconds()
+
+    def _evaluate_governance(self):
+        """Apply closed-loop adjustments when thresholds are exceeded."""
+        cpu = self.performance_metrics.cpu_percent
+        memory = self.performance_metrics.memory_mb
+        operations = max(1, self.performance_metrics.operations_count)
+        error_rate = self.performance_metrics.errors_count / operations
+
+        if cpu >= self.governance_config.max_cpu_percent:
+            self._apply_throttle("CPU", cpu)
+        else:
+            self._clear_throttle_if_recovered()
+
+        if memory >= self.governance_config.max_memory_mb:
+            self._pause_operations("memory", memory)
+        else:
+            self._resume_operations_if_recovered(memory)
+
+        if (
+            error_rate >= self.governance_config.max_error_rate
+            or self.performance_metrics.errors_count >= self.governance_config.max_errors
+        ):
+            self._escalate_issue(
+                f"High error rate detected (rate={error_rate:.2f}, errors={self.performance_metrics.errors_count})"
+            )
+
+    def _apply_throttle(self, reason: str, value: float):
+        """Reduce concurrency and increase delays to protect the system."""
+        if self.governance_state.concurrency_scale < 1.0:
+            self.governance_state.last_throttle = datetime.utcnow()
+            return
+
+        self.governance_state.throttle_multiplier = 2.0
+        self.governance_state.concurrency_scale = 0.5
+        self.governance_state.last_throttle = datetime.utcnow()
+        self.logger.warning(
+            f"Throttling bulk operations due to {reason} pressure (value={value:.2f})"
+        )
+
+    def _clear_throttle_if_recovered(self):
+        if self.governance_state.concurrency_scale >= 1.0:
+            return
+
+        last_throttle = self.governance_state.last_throttle
+        if not last_throttle:
+            return
+
+        if datetime.utcnow() - last_throttle >= timedelta(seconds=self.governance_config.cooldown_seconds):
+            self.governance_state.concurrency_scale = 1.0
+            self.governance_state.throttle_multiplier = 1.0
+            self.governance_state.last_throttle = None
+            self.logger.info("Recovered from resource pressure. Throttle lifted.")
+
+    def _pause_operations(self, reason: str, value: float):
+        cooldown = timedelta(seconds=self.governance_config.cooldown_seconds)
+        resume_time = datetime.utcnow() + cooldown
+        if self.governance_state.paused_until and self.governance_state.paused_until > resume_time:
+            return
+
+        self.governance_state.paused_until = resume_time
+        self.logger.warning(
+            f"Pausing bulk operations for {self.governance_config.cooldown_seconds}s due to {reason} load (value={value:.2f})"
+        )
+
+    def _resume_operations_if_recovered(self, memory_usage: float):
+        if not self.governance_state.paused_until:
+            return
+
+        if memory_usage <= max(0.0, self.governance_config.max_memory_mb * 0.8):
+            self.governance_state.paused_until = None
+            self.logger.info("Memory usage recovered. Resuming bulk operations.")
+            self._pending_event.set()
+
+    def _escalate_issue(self, message: str):
+        if self.governance_state.escalation_required:
+            return
+        self.governance_state.escalation_required = True
+        self.logger.error(f"Escalation required: {message}. Requesting human review.")
     
     # ==================== Security & Credentials ====================
     

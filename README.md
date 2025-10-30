@@ -8,7 +8,9 @@ A comprehensive Python-based automation framework with advanced features includi
 - **Selenium WebDriver Integration** - Advanced browser automation
 - **Automatic ChromeDriver Management** - No manual driver setup required
 - **Bulk Operations** - Mass WhatsApp messaging with rate limiting
+- **Crash-Safe State Persistence** - Queued tasks and results survive restarts
 - **Performance Monitoring** - Real-time system metrics tracking
+- **Closed-Loop Governance** - Adaptive throttling, pausing, and human escalation
 - **Production Deployment** - Enterprise-grade configuration
 - **Security & Encryption** - Secure credential management
 - **Multi-Channel Notifications** - Slack, Email, System alerts
@@ -105,16 +107,22 @@ success = agent.send_whatsapp_message_selenium(
     retry_on_failure=True
 )
 
-# Bulk messaging with rate limiting
+# Bulk messaging with persistent queuing
 contacts = [
     {"phone": "256701234567", "name": "John", "message": "Personalized greeting"},
     {"phone": "256709876543", "name": "Jane", "message": "Custom notification"}
 ]
 
-results = agent.send_bulk_messages(contacts, BulkOperationConfig(
+summary = agent.send_bulk_messages(contacts, BulkOperationConfig(
     max_concurrent=2,
-    delay_between_operations=5.0
+    delay_between_operations=5.0,
+    retry_attempts=3,
+    retry_delay=10.0
 ))
+print(summary)
+
+# Poll queue health at any time (even after restart)
+print(agent.get_bulk_operation_summary())
 
 # Schedule recurring messages
 agent.schedule_whatsapp(
@@ -141,6 +149,27 @@ print(f"Operations: {stats['operations_count']}")
 print(f"Duration: {stats['duration_seconds']:.2f}s")
 print(f"Memory: {stats['memory_mb']:.2f}MB")
 print(f"CPU: {stats['cpu_percent']:.1f}%")
+```
+
+### Persistent Operations & Governance
+```python
+# Persistent state is stored at automation_logs/persistent_state.json by default.
+# You can customise the location when constructing the agent:
+agent = EnhancedAutomationAgent(state_path="/tmp/agent_state.json")
+
+# Governance thresholds keep automation safe under heavy load.
+agent = EnhancedAutomationAgent(
+    governance_config=GovernanceConfig(
+        max_cpu_percent=75.0,
+        max_memory_mb=2048.0,
+        max_error_rate=0.25,
+        max_errors=5,
+        cooldown_seconds=30.0
+    )
+)
+
+# The agent automatically throttles, pauses, and escalates when thresholds are exceeded.
+print(agent.get_bulk_operation_summary()["escalation_required"])
 ```
 
 ### Multi-Channel Notifications

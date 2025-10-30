@@ -11,14 +11,28 @@ import sys
 import time
 import json
 from pathlib import Path
+from typing import Dict, List, Optional
 from unittest.mock import Mock, patch, MagicMock
 import threading
+from types import SimpleNamespace
 
 # Add current directory to path for imports
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+os.environ.setdefault("DISPLAY", ":0")
+
+# Provide lightweight stubs for GUI-heavy dependencies during testing
+mock_pyautogui = MagicMock()
+mock_pyautogui.FAILSAFE = True
+mock_pyautogui.PAUSE = 0.5
+sys.modules.setdefault('pyautogui', mock_pyautogui)
 
 from automation_agent import (
     AutomationAgent, AutomationTask, SafetyLevel, TaskStatus, TaskResult
+)
+from enhanced_automation_agent import (
+    EnhancedAutomationAgent,
+    BulkOperationConfig,
+    GovernanceConfig
 )
 
 
@@ -492,6 +506,134 @@ class TestPerformance(unittest.TestCase):
 
         # Should complete in reasonable time
         self.assertLess(duration, 5.0)
+
+
+class TestEnhancedAutomationAgent(unittest.TestCase):
+    """Tests for enhanced agent persistence, concurrency, and governance."""
+
+    def setUp(self):
+        self.temp_dir = tempfile.mkdtemp()
+        self.state_path = os.path.join(self.temp_dir, "persistent_state.json")
+        self.config_path = os.path.join(self.temp_dir, "enhanced_config.json")
+        self.default_governance = GovernanceConfig(
+            max_cpu_percent=1000.0,
+            max_memory_mb=100000.0,
+            max_error_rate=2.0,
+            max_errors=100,
+            cooldown_seconds=0.1
+        )
+        self._agents: List[EnhancedAutomationAgent] = []
+
+    def tearDown(self):
+        for agent in self._agents:
+            agent.cleanup()
+        import shutil
+        shutil.rmtree(self.temp_dir, ignore_errors=True)
+
+    def _create_agent(self, governance_config: Optional[GovernanceConfig] = None) -> EnhancedAutomationAgent:
+        agent = EnhancedAutomationAgent(
+            config_path=self.config_path,
+            safety_level=SafetyLevel.LOW,
+            headless_mode=True,
+            state_path=self.state_path,
+            governance_config=governance_config or self.default_governance
+        )
+        self._agents.append(agent)
+        return agent
+
+    def test_persistent_queue_resumes_after_restart(self):
+        contacts = [
+            {"phone": "+1000000001", "message": "hello", "name": "Alpha"},
+            {"phone": "+1000000002", "message": "hi", "name": "Beta"}
+        ]
+        config = BulkOperationConfig(max_concurrent=2, retry_attempts=3, retry_delay=0.2)
+
+        agent1 = self._create_agent()
+        with patch.object(EnhancedAutomationAgent, "send_whatsapp_message_selenium", side_effect=RuntimeError("fail")):
+            agent1.send_bulk_messages(contacts, config=config)
+            time.sleep(0.3)
+
+        agent1.cleanup()
+
+        with patch.object(EnhancedAutomationAgent, "send_whatsapp_message_selenium", return_value=True):
+            agent2 = self._create_agent()
+            start = time.time()
+            while True:
+                summary = agent2.get_bulk_operation_summary()
+                if summary["pending"] == 0 and summary["in_progress"] == 0:
+                    break
+                self.assertLess(time.time() - start, 5.0, "Operations did not resume after restart")
+                time.sleep(0.1)
+
+            self.assertEqual(summary["completed"], len(contacts))
+
+    def test_bulk_concurrency_and_retry_respects_limits(self):
+        agent = self._create_agent()
+        config = BulkOperationConfig(
+            max_concurrent=3,
+            delay_between_operations=0.05,
+            retry_attempts=2,
+            retry_delay=0.05
+        )
+        contacts = [
+            {"phone": f"+10000000{i}", "message": f"msg{i}", "name": f"User{i}"}
+            for i in range(5)
+        ]
+
+        active = 0
+        max_active = 0
+        attempts: Dict[str, int] = {}
+        lock = threading.Lock()
+
+        def fake_send(phone_number: str, message: str, retry_on_failure: bool = True):
+            nonlocal active, max_active
+            with lock:
+                active += 1
+                max_active = max(max_active, active)
+            time.sleep(0.05)
+            with lock:
+                active -= 1
+            count = attempts.get(phone_number, 0) + 1
+            attempts[phone_number] = count
+            return count > 1
+
+        with patch.object(EnhancedAutomationAgent, "send_whatsapp_message_selenium", side_effect=fake_send):
+            agent.send_bulk_messages(contacts, config=config)
+            start = time.time()
+            while True:
+                summary = agent.get_bulk_operation_summary()
+                if summary["pending"] == 0 and summary["in_progress"] == 0:
+                    break
+                self.assertLess(time.time() - start, 5.0, "Bulk operations did not finish")
+                time.sleep(0.05)
+
+        final_summary = agent.get_bulk_operation_summary()
+        self.assertEqual(final_summary["completed"], len(contacts))
+        self.assertLessEqual(max_active, config.max_concurrent)
+
+    def test_governance_triggers_throttle_pause_and_escalation(self):
+        high_pressure = GovernanceConfig(
+            max_cpu_percent=50.0,
+            max_memory_mb=10.0,
+            max_error_rate=0.1,
+            max_errors=1,
+            cooldown_seconds=0.1
+        )
+
+        class FakeProcess:
+            def memory_info(self):
+                return SimpleNamespace(rss=20 * 1024 * 1024)
+
+            def cpu_percent(self, interval=None):
+                return 95.0
+
+        with patch('enhanced_automation_agent.psutil.Process', return_value=FakeProcess()):
+            agent = self._create_agent(governance_config=high_pressure)
+            agent.record_operation(success=False)
+
+            self.assertLess(agent.governance_state.concurrency_scale, 1.0)
+            self.assertIsNotNone(agent.governance_state.paused_until)
+            self.assertTrue(agent.governance_state.escalation_required)
 
 
 # ==================== UTILITY FUNCTIONS ====================
