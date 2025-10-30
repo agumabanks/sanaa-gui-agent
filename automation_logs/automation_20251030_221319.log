@@ -1,0 +1,8 @@
+2025-10-30 22:13:19,312 - automation_agent - INFO - Logging initialized. Log file: automation_logs/automation_20251030_221319.log
+2025-10-30 22:13:19,314 - automation_agent - INFO - Configuration loaded from automation_config.json
+2025-10-30 22:13:19,314 - automation_agent - INFO - Emergency stop configured (Ctrl+C)
+2025-10-30 22:13:19,316 - automation_agent - INFO - Automation Agent initialized
+2025-10-30 22:13:19,321 - automation_agent - INFO - ACTION: whatsapp_message | DETAILS: {"phone": "+1234***", "message_length": 19}
+2025-10-30 22:13:19,322 - automation_agent - INFO - ACTION: whatsapp_group_message | DETAILS: {"group_id": "test-group...", "message_length": 13}
+2025-10-30 22:13:19,324 - automation_agent - INFO - Scheduler stopped
+2025-10-30 22:13:19,325 - automation_agent - INFO - Automation agent cleanup complete

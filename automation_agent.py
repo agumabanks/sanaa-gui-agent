@@ -52,6 +52,17 @@ except ImportError:
     psutil = None
 
 
+def load_pywhatkit():
+    """Safely import pywhatkit with clear guidance when missing."""
+    try:
+        import pywhatkit as kit  # type: ignore
+        return kit
+    except ImportError as exc:
+        raise ImportError(
+            "pywhatkit is required for WhatsApp automation. Install it with: pip install pywhatkit"
+        ) from exc
+
+
 # Configure PyAutoGUI safety
 pyautogui.FAILSAFE = True  # Move mouse to corner to abort
 pyautogui.PAUSE = 0.5  # Default pause between actions
@@ -663,15 +674,15 @@ class AutomationAgent:
             return False
         
         try:
-            import pywhatkit as kit
-            
+            kit = load_pywhatkit()
+
             wait = wait_time or self.config.get("whatsapp", {}).get("wait_time", 20)
             close = close_time or self.config.get("whatsapp", {}).get("close_time", 5)
-            
+
             kit.sendwhatmsg_instantly(
-                phone, message, 
-                wait_time=wait, 
-                tab_close=True, 
+                phone, message,
+                wait_time=wait,
+                tab_close=True,
                 close_time=close
             )
             
@@ -703,11 +714,11 @@ class AutomationAgent:
             return False
         
         try:
-            import pywhatkit as kit
-            
+            kit = load_pywhatkit()
+
             wait = wait_time or self.config.get("whatsapp", {}).get("wait_time", 20)
             close = close_time or self.config.get("whatsapp", {}).get("close_time", 5)
-            
+
             kit.sendwhatmsg_to_group_instantly(
                 group_id, message,
                 wait_time=wait,
@@ -944,6 +955,18 @@ class AutomationAgent:
         """Set configuration value."""
         self.config[key] = value
         self._save_config()
+
+    def cleanup(self):
+        """Stop schedulers and reset safety flags before shutdown."""
+        try:
+            self.stop_scheduler()
+        except Exception as exc:  # pragma: no cover - defensive guard
+            self.logger.error(f"Scheduler cleanup failed: {exc}")
+        finally:
+            self._scheduler_thread = None
+            self._scheduler_running = False
+            self.emergency_stop = False
+            self.logger.info("Automation agent cleanup complete")
 
 
 # Quick access functions

@@ -1,0 +1,21 @@
+{
+  "safety": {
+    "failsafe_enabled": true,
+    "pause_duration": 0.5,
+    "confirmation_required": false
+  },
+  "whatsapp": {
+    "wait_time": 20,
+    "close_time": 5,
+    "client": "web"
+  },
+  "screen": {
+    "screenshot_dir": "screenshots",
+    "monitor_interval": 60
+  },
+  "notifications": {
+    "enabled": true,
+    "on_completion": true,
+    "on_error": true
+  }
+}

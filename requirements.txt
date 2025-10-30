@@ -11,6 +11,7 @@ selenium>=4.15.0               # Web browser automation
 webdriver-manager>=4.0.0       # Automatic ChromeDriver management
 opencv-python>=4.8.0           # Computer vision for image detection
 numpy>=1.24.0                  # Numerical computing
+scikit-learn>=1.2.0            # Machine learning utilities for screen analysis
 
 # ============= WHATSAPP AUTOMATION =============
 pywhatkit>=5.4                 # WhatsApp messaging support

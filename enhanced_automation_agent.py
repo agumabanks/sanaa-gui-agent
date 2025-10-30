@@ -182,7 +182,7 @@ class EnhancedAutomationAgent(AutomationAgent):
             return False
     
     def cleanup(self):
-        """Cleanup resources including WebDriver."""
+        """Cleanup resources including WebDriver and schedulers."""
         if self.driver:
             try:
                 self.driver.quit()
@@ -191,6 +191,7 @@ class EnhancedAutomationAgent(AutomationAgent):
                 self.logger.info("WebDriver cleaned up")
             except Exception as e:
                 self.logger.error(f"Error cleaning up WebDriver: {e}")
+        super().cleanup()
     
     def wait_for_element(
         self, 
@@ -301,10 +302,12 @@ class EnhancedAutomationAgent(AutomationAgent):
                     "delivery_confirmed": wait_for_delivery
                 })
                 
+                self.record_operation(success=True)
                 return True
                 
             except Exception as e:
                 self.logger.error(f"WhatsApp message failed (attempt {attempts + 1}): {e}")
+                self.record_operation(success=False)
                 attempts += 1
                 if attempts < max_attempts:
                     time.sleep(5)
@@ -370,6 +373,7 @@ class EnhancedAutomationAgent(AutomationAgent):
                 self.logger.error(f"Error sending to {contact.get('name', 'Unknown')}: {e}")
                 results["failed"] += 1
                 results["errors"].append(f"{contact.get('name', 'Unknown')}: {str(e)}")
+                self.record_operation(success=False)
                 
                 if not config.continue_on_error:
                     break
@@ -394,27 +398,36 @@ class EnhancedAutomationAgent(AutomationAgent):
             repeat_days: List of days to repeat (e.g., ["monday", "wednesday", "friday"])
             
         Returns:
-            Task ID
+            Task ID or list of task IDs when multiple schedules are created
         """
+        if repeat_days:
+            task_ids: List[str] = []
+            for day in repeat_days:
+                day_task = AutomationTask(
+                    name=f"Scheduled WhatsApp to {phone_number} ({day.capitalize()})",
+                    function=self.send_whatsapp_message_selenium,
+                    args=(phone_number, message),
+                    kwargs={"wait_for_delivery": True},
+                    schedule_type="weekly",
+                    schedule_time=f"{day.lower()} {time_str}"
+                )
+                task_ids.append(self.add_task(day_task))
+            self.logger.info(
+                f"WhatsApp scheduled on {', '.join(repeat_days)} at {time_str} for {phone_number}"
+            )
+            return task_ids
+
         task = AutomationTask(
             name=f"Scheduled WhatsApp to {phone_number}",
             function=self.send_whatsapp_message_selenium,
             args=(phone_number, message),
-            kwargs={"wait_for_delivery": True}
+            kwargs={"wait_for_delivery": True},
+            schedule_type="daily",
+            schedule_time=time_str
         )
-        
-        if repeat_days:
-            # Schedule for specific days
-            for day in repeat_days:
-                task.schedule_type = "weekly"
-                task.schedule_time = f"{day.lower()} {time_str}"
-        else:
-            # Daily schedule
-            task.schedule_type = "daily"
-            task.schedule_time = time_str
-        
+
         task_id = self.add_task(task)
-        self.logger.info(f"WhatsApp scheduled: {time_str}, repeat_days: {repeat_days}")
+        self.logger.info(f"WhatsApp scheduled daily at {time_str} for {phone_number}")
         return task_id
     
     # ==================== Performance Monitoring ====================
@@ -449,6 +462,14 @@ class EnhancedAutomationAgent(AutomationAgent):
     def get_performance_stats(self) -> Dict[str, Any]:
         """Get current performance statistics."""
         return self.performance_metrics.to_dict()
+
+    def record_operation(self, success: bool):
+        """Update performance counters when monitoring is enabled."""
+        if not self.monitoring_enabled:
+            return
+        self.performance_metrics.operations_count += 1
+        if not success:
+            self.performance_metrics.errors_count += 1
     
     # ==================== Security & Credentials ====================
     
@@ -551,6 +572,7 @@ class EnhancedAutomationAgent(AutomationAgent):
             }
             
             self.logger.info(f"Website performance test: {url} loaded in {load_time:.2f}s")
+            self.record_operation(success=True)
             return metrics
             
         except Exception as e:
@@ -561,6 +583,7 @@ class EnhancedAutomationAgent(AutomationAgent):
                 "timestamp": datetime.now().isoformat()
             }
             self.logger.error(f"Website performance test failed: {e}")
+            self.record_operation(success=False)
             return error_metrics
     
     def run_script(self, script_path: str) -> Tuple[bool, str]:
@@ -591,11 +614,14 @@ class EnhancedAutomationAgent(AutomationAgent):
                 "success": success,
                 "return_code": result.returncode
             })
+
+            self.record_operation(success=success)
             
             return success, output
             
         except Exception as e:
             self.logger.error(f"Script execution failed: {e}")
+            self.record_operation(success=False)
             return False, str(e)
     
     def send_slack_notification(

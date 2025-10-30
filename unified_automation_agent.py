@@ -4,6 +4,7 @@ Comprehensive automation framework with WhatsApp, browser automation, scheduling
 References sanaa_agent.py architecture with enhanced features and robust error handling
 """
 
+import os
 import pyautogui
 import time
 import schedule
@@ -21,12 +22,15 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
+from selenium.common.exceptions import WebDriverException
 from webdriver_manager.chrome import ChromeDriverManager
 from PIL import Image
 import cv2
 import numpy as np
 import requests
 import threading
+
+from ml_screen_analyzer import ScreenActivityClassifier
 
 # Setup logging with enhanced formatting
 logging.basicConfig(
@@ -55,7 +59,7 @@ class AutomationAgent:
     - Bulk messaging with progress tracking
     """
     
-    def __init__(self):
+    def __init__(self, chrome_profile_path=None, chrome_profile_directory=None):
         """Initialize the automation agent with system detection and configuration."""
         self.system = platform.system()
         pyautogui.FAILSAFE = True
@@ -64,6 +68,20 @@ class AutomationAgent:
         self.driver = None
         self.scheduler_running = False
         self.scheduled_tasks = []
+        self.screen_classifier = ScreenActivityClassifier()
+        default_profile_dir = Path.home() / ".soko24_automation" / "chrome-profile"
+        default_profile_dir.mkdir(parents=True, exist_ok=True)
+        env_profile_path = os.environ.get("CHROME_PROFILE_PATH")
+        self.chrome_profile_path = str(
+            chrome_profile_path
+            or env_profile_path
+            or default_profile_dir
+        )
+        env_profile_directory = os.environ.get("CHROME_PROFILE_DIRECTORY")
+        self.chrome_profile_directory = (
+            chrome_profile_directory
+            or env_profile_directory
+        )
         
         logger.info("=" * 60)
         logger.info("Unified Automation Agent Initialized")
@@ -269,13 +287,30 @@ class AutomationAgent:
             options.add_argument('--disable-blink-features=AutomationControlled')
             options.add_experimental_option("excludeSwitches", ["enable-automation"])
             options.add_experimental_option('useAutomationExtension', False)
+
+            profile_root = None
+            if self.chrome_profile_path:
+                profile_root = Path(self.chrome_profile_path)
+                profile_root.mkdir(parents=True, exist_ok=True)
+                options.add_argument(f'--user-data-dir={profile_root}')
+                logger.info(f"Using Chrome profile directory: {profile_root}")
+                if self.chrome_profile_directory:
+                    options.add_argument(f'--profile-directory={self.chrome_profile_directory}')
+                    logger.info(f"Using Chrome profile: {self.chrome_profile_directory}")
             
             # Use webdriver-manager for automatic ChromeDriver management
             try:
                 service = Service(ChromeDriverManager().install())
                 self.driver = webdriver.Chrome(service=service, options=options)
                 logger.info("ChromeDriver initialized with webdriver-manager")
-            except Exception as e:
+            except WebDriverException as e:
+                if "DevToolsActivePort" in str(e):
+                    logger.error("Chrome profile appears to be in use by another session.")
+                    print("✗ Browser initialization failed: Chrome profile is currently open.")
+                    print("  💡 Close all Chrome windows or use a dedicated automation profile.")
+                    if profile_root:
+                        print("  💡 Profile directory:", profile_root)
+                    return False
                 logger.warning(f"webdriver-manager failed: {e}, trying default ChromeDriver")
                 self.driver = webdriver.Chrome(options=options)
             
@@ -312,7 +347,8 @@ class AutomationAgent:
         """
         try:
             if not self.driver:
-                self.init_browser()
+                if not self.init_browser():
+                    return False
             
             logger.info(f"Navigating to: {url}")
             print(f"🔗 Navigating to: {url}")
@@ -484,10 +520,12 @@ class AutomationAgent:
             url = f"https://web.whatsapp.com/send?phone={phone_number}&text={message_encoded}"
             
             if not self.driver:
-                self.init_browser()
+                if not self.init_browser():
+                    return False
             
             logger.info(f"Navigating to WhatsApp Web: {url}")
-            self.navigate_to(url)
+            if not self.navigate_to(url):
+                return False
             
             # Wait for WhatsApp Web to load (30 seconds)
             logger.info("Waiting 30 seconds for WhatsApp Web to load...")
@@ -498,33 +536,35 @@ class AutomationAgent:
             try:
                 logger.info("Checking for WhatsApp Web login verification...")
                 print("🔐 Checking login status...")
-                
-                # Try to find send button
-                send_button = self.find_element(
-                    By.XPATH,
-                    '//span[@data-icon="send"]',
-                    timeout=10
+
+                send_button = (
+                    self.find_element(By.CSS_SELECTOR, "button[aria-label='Send']", timeout=5)
+                    or self.find_element(By.CSS_SELECTOR, "button[data-testid='compose-btn-send']", timeout=5)
+                    or self.find_element(By.XPATH, "//span[@data-icon='send']", timeout=5)
                 )
-                
+
                 if send_button:
                     logger.info("Send button found, clicking...")
                     print("✓ Send button found, sending message...")
                     send_button.click()
-                    time.sleep(2)
-                    
-                    logger.info(f"WhatsApp message sent to {phone_number}")
-                    print(f"✓ Message sent to {phone_number}")
-                    self.log_action(f"WhatsApp sent to {phone_number}: {message}")
-                    return True
                 else:
-                    logger.warning("Send button not found, trying fallback method...")
-                    print("⚠️  Send button not found, trying Enter key...")
-                    pyautogui.press('enter')
-                    time.sleep(2)
-                    
-                    logger.info(f"WhatsApp message sent (fallback) to {phone_number}")
-                    print(f"✓ Message sent (fallback) to {phone_number}")
-                    return True
+                    logger.info("Send button not found, attempting Enter key fallback")
+                    input_box = self.find_element(
+                        By.XPATH,
+                        "//div[@data-testid='conversation-compose-box-input' and @contenteditable='true']",
+                        timeout=5
+                    )
+                    if input_box:
+                        input_box.send_keys(Keys.ENTER)
+                    else:
+                        pyautogui.press('enter')
+
+                time.sleep(2)
+
+                logger.info(f"WhatsApp message sent to {phone_number}")
+                print(f"✓ Message sent to {phone_number}")
+                self.log_action(f"WhatsApp sent to {phone_number}: {message}")
+                return True
                     
             except Exception as e:
                 logger.warning(f"Send button search timeout: {e}")
@@ -686,11 +726,13 @@ class AutomationAgent:
             print(f"⚡ Testing website performance: {url}")
             
             if not self.driver:
-                self.init_browser()
+                if not self.init_browser():
+                    return {'status': 'failed', 'error': 'browser_unavailable'}
             
             # Measure load time
             start_time = time.time()
-            self.navigate_to(url)
+            if not self.navigate_to(url):
+                return {'status': 'failed', 'error': 'navigation_failed'}
             load_time = time.time() - start_time
             
             # Get performance metrics
@@ -752,8 +794,13 @@ class AutomationAgent:
         try:
             logger.info(f"Checking broken links on: {url}")
             print(f"🔗 Checking for broken links: {url}")
-            
-            self.navigate_to(url)
+
+            if not self.driver:
+                if not self.init_browser():
+                    return {'status': 'failed', 'error': 'browser_unavailable'}
+
+            if not self.navigate_to(url):
+                return {'status': 'failed', 'error': 'navigation_failed'}
             links = self.driver.find_elements(By.TAG_NAME, 'a')
             
             logger.info(f"Found {len(links)} links on page")
@@ -892,9 +939,11 @@ class AutomationAgent:
             print("  🔍 Searching for tech news...")
             
             if not self.driver:
-                self.init_browser()
+                if not self.init_browser():
+                    return False
             
-            self.navigate_to("https://www.google.com")
+            if not self.navigate_to("https://www.google.com"):
+                return False
             search_box = self.find_element(By.NAME, "q")
             
             if search_box:
@@ -1008,6 +1057,36 @@ class AutomationAgent:
             logger.error(f"Screenshot failed: {e}")
             print(f"✗ Screenshot error: {e}")
             return None
+
+    # ============= ML ANALYTICS =============
+
+    def analyze_screen_activity(self):
+        """
+        Generate a machine-learning summary of current screen activity.
+
+        Returns:
+            dict: Summary with dominant colors, brightness, and label.
+
+        Example:
+            >>> summary = agent.analyze_screen_activity()
+            >>> print(summary["label"])
+        """
+        try:
+            summary = self.screen_classifier.analyze()
+            analytics = {
+                'dominant_colors': summary.dominant_colors,
+                'brightness_score': summary.brightness_score,
+                'saturation_score': summary.saturation_score,
+                'label': summary.label()
+            }
+            logger.info(f"Screen activity analysis: {analytics}")
+            print(f"📊 Screen label: {analytics['label']} (brightness={analytics['brightness_score']:.1f})")
+            self.log_action(f"Screen analysis: {analytics['label']}")
+            return analytics
+        except Exception as e:
+            logger.error(f"Screen analysis failed: {e}")
+            print(f"✗ Screen analysis error: {e}")
+            return {'error': str(e)}
     
     def log_action(self, action):
         """
@@ -1110,19 +1189,26 @@ class AutomationAgent:
         try:
             logger.info("Starting cleanup...")
             print("\n🧹 Cleaning up resources...")
-            
+
             if self.driver:
-                self.driver.quit()
-                logger.info("Browser closed")
-                print("  ✓ Browser closed")
-            
+                try:
+                    if self.chrome_profile_path:
+                        print("  ℹ️  Keeping browser open for active session reuse")
+                    else:
+                        self.driver.quit()
+                        print("  ✓ Browser closed")
+                except Exception as browser_err:
+                    logger.error(f"Browser cleanup failed: {browser_err}")
+                finally:
+                    self.driver = None
+
             self.scheduler_running = False
-            
+
             logger.info("=" * 60)
             logger.info("Agent cleanup complete")
             logger.info("=" * 60)
             print("✓ Cleanup complete\n")
-            
+
         except Exception as e:
             logger.error(f"Cleanup error: {e}")
             print(f"✗ Cleanup error: {e}")

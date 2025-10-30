@@ -1,0 +1,1177 @@
+2025-10-30 22:10:35,918 - INFO - [__init__] - ============================================================
+2025-10-30 22:10:35,919 - INFO - [__init__] - Unified Automation Agent Initialized
+2025-10-30 22:10:35,919 - INFO - [__init__] - System: Darwin
+2025-10-30 22:10:35,921 - INFO - [__init__] - Timestamp: 2025-10-30T22:10:35.920945
+2025-10-30 22:10:35,921 - INFO - [__init__] - ============================================================
+2025-10-30 22:10:43,285 - INFO - [analyze_screen_activity] - Screen activity analysis: {'dominant_colors': [(251, 160, 41), (42, 27, 255), (27, 254, 155), (147, 23, 28)], 'brightness_score': 120.9988, 'saturation_score': 89.48319525929578, 'label': 'balanced'}
+2025-10-30 22:10:43,287 - INFO - [cleanup] - Starting cleanup...
+2025-10-30 22:10:43,287 - INFO - [cleanup] - ============================================================
+2025-10-30 22:10:43,287 - INFO - [cleanup] - Agent cleanup complete
+2025-10-30 22:10:43,287 - INFO - [cleanup] - ============================================================
+2025-10-30 22:30:58,770 - INFO - [__init__] - ============================================================
+2025-10-30 22:30:58,771 - INFO - [__init__] - Unified Automation Agent Initialized
+2025-10-30 22:30:58,772 - INFO - [__init__] - System: Darwin
+2025-10-30 22:30:58,772 - INFO - [__init__] - Timestamp: 2025-10-30T22:30:58.772268
+2025-10-30 22:30:58,772 - INFO - [__init__] - ============================================================
+2025-10-30 22:30:58,772 - INFO - [send_whatsapp_message] - Preparing to send WhatsApp message to: 256706272481
+2025-10-30 22:30:58,773 - INFO - [init_browser] - Initializing browser...
+2025-10-30 22:30:58,773 - INFO - [log] - ====== WebDriver manager ======
+2025-10-30 22:30:59,141 - INFO - [log] - Get LATEST chromedriver version for google-chrome
+2025-10-30 22:30:59,662 - INFO - [log] - Get LATEST chromedriver version for google-chrome
+2025-10-30 22:30:59,981 - INFO - [log] - There is no [mac64] chromedriver "141.0.7390.122" for browser google-chrome "141.0.7390" in cache
+2025-10-30 22:30:59,981 - INFO - [log] - Get LATEST chromedriver version for google-chrome
+2025-10-30 22:31:01,521 - INFO - [log] - WebDriver version 141.0.7390.122 selected
+2025-10-30 22:31:01,529 - INFO - [log] - Modern chrome version https://storage.googleapis.com/chrome-for-testing-public/141.0.7390.122/mac-x64/chromedriver-mac-x64.zip
+2025-10-30 22:31:01,529 - INFO - [log] - About to download new driver from https://storage.googleapis.com/chrome-for-testing-public/141.0.7390.122/mac-x64/chromedriver-mac-x64.zip
+2025-10-30 22:31:02,840 - INFO - [log] - Driver downloading response is 200
+2025-10-30 22:31:06,624 - INFO - [log] - Get LATEST chromedriver version for google-chrome
+2025-10-30 22:31:07,291 - INFO - [log] - Driver has been saved in cache [/Users/esthermboa/.wdm/drivers/chromedriver/mac64/141.0.7390.122]
+2025-10-30 22:31:10,236 - INFO - [init_browser] - ChromeDriver initialized with webdriver-manager
+2025-10-30 22:31:10,247 - INFO - [init_browser] - Browser initialized successfully
+2025-10-30 22:31:10,248 - INFO - [send_whatsapp_message] - Navigating to WhatsApp Web: https://web.whatsapp.com/send?phone=256706272481&text=Good%20morning
+2025-10-30 22:31:10,248 - INFO - [navigate_to] - Navigating to: https://web.whatsapp.com/send?phone=256706272481&text=Good%20morning
+2025-10-30 22:31:12,670 - INFO - [navigate_to] - Successfully navigated to: https://web.whatsapp.com/send?phone=256706272481&text=Good%20morning
+2025-10-30 22:31:14,677 - INFO - [send_whatsapp_message] - Waiting 30 seconds for WhatsApp Web to load...
+2025-10-30 22:31:44,458 - INFO - [send_whatsapp_message] - Checking for WhatsApp Web login verification...
+2025-10-30 22:31:44,459 - INFO - [find_element] - Finding element: xpath=//span[@data-icon="send"] (timeout: 10s)
+2025-10-30 22:31:54,725 - ERROR - [find_element] - Element not found: //span[@data-icon="send"] - Message: 
+Stacktrace:
+0   chromedriver                        0x0000000102c0e108 chromedriver + 6119688
+1   chromedriver                        0x0000000102c0580a chromedriver + 6084618
+2   chromedriver                        0x00000001026a11a6 chromedriver + 430502
+3   chromedriver                        0x00000001026f38a1 chromedriver + 768161
+4   chromedriver                        0x00000001026f3b61 chromedriver + 768865
+5   chromedriver                        0x0000000102744034 chromedriver + 1097780
+6   chromedriver                        0x0000000102719e2d chromedriver + 925229
+7   chromedriver                        0x0000000102741378 chromedriver + 1086328
+8   chromedriver                        0x0000000102719bd3 chromedriver + 924627
+9   chromedriver                        0x00000001026e5c0b chromedriver + 711691
+10  chromedriver                        0x00000001026e68d1 chromedriver + 714961
+11  chromedriver                        0x0000000102bcb5d0 chromedriver + 5846480
+12  chromedriver                        0x0000000102bcf865 chromedriver + 5863525
+13  chromedriver                        0x0000000102ba6da7 chromedriver + 5696935
+14  chromedriver                        0x0000000102bd02ff chromedriver + 5866239
+15  chromedriver                        0x0000000102b96204 chromedriver + 5628420
+16  chromedriver                        0x0000000102bf2828 chromedriver + 6006824
+17  chromedriver                        0x0000000102bf29ed chromedriver + 6007277
+18  chromedriver                        0x0000000102c053e1 chromedriver + 6083553
+19  libsystem_pthread.dylib             0x00007ff8130bc1d3 _pthread_start + 125
+20  libsystem_pthread.dylib             0x00007ff8130b7bd3 thread_start + 15
+
+2025-10-30 22:31:54,726 - WARNING - [send_whatsapp_message] - Send button not found, trying fallback method...
+2025-10-30 22:31:57,327 - INFO - [send_whatsapp_message] - WhatsApp message sent (fallback) to 256706272481
+2025-10-30 22:31:57,328 - INFO - [cleanup] - Starting cleanup...
+2025-10-30 22:31:57,578 - INFO - [cleanup] - Browser closed
+2025-10-30 22:31:57,578 - INFO - [cleanup] - ============================================================
+2025-10-30 22:31:57,578 - INFO - [cleanup] - Agent cleanup complete
+2025-10-30 22:31:57,578 - INFO - [cleanup] - ============================================================
+2025-10-30 22:32:10,215 - INFO - [__init__] - ============================================================
+2025-10-30 22:32:10,215 - INFO - [__init__] - Unified Automation Agent Initialized
+2025-10-30 22:32:10,215 - INFO - [__init__] - System: Darwin
+2025-10-30 22:32:10,215 - INFO - [__init__] - Timestamp: 2025-10-30T22:32:10.215942
+2025-10-30 22:32:10,216 - INFO - [__init__] - ============================================================
+2025-10-30 22:32:10,216 - INFO - [send_whatsapp_message] - Preparing to send WhatsApp message to: 256706272481
+2025-10-30 22:32:10,216 - INFO - [init_browser] - Initializing browser...
+2025-10-30 22:32:10,216 - INFO - [log] - ====== WebDriver manager ======
+2025-10-30 22:32:10,647 - INFO - [log] - Get LATEST chromedriver version for google-chrome
+2025-10-30 22:32:11,270 - INFO - [log] - Get LATEST chromedriver version for google-chrome
+2025-10-30 22:32:11,589 - INFO - [log] - Driver [/Users/esthermboa/.wdm/drivers/chromedriver/mac64/141.0.7390.122/chromedriver-mac-x64/chromedriver] found in cache
+2025-10-30 22:32:13,600 - INFO - [init_browser] - ChromeDriver initialized with webdriver-manager
+2025-10-30 22:32:13,625 - INFO - [init_browser] - Browser initialized successfully
+2025-10-30 22:32:13,626 - INFO - [send_whatsapp_message] - Navigating to WhatsApp Web: https://web.whatsapp.com/send?phone=256706272481&text=Good%20morning
+2025-10-30 22:32:13,626 - INFO - [navigate_to] - Navigating to: https://web.whatsapp.com/send?phone=256706272481&text=Good%20morning
+2025-10-30 22:32:15,818 - INFO - [navigate_to] - Successfully navigated to: https://web.whatsapp.com/send?phone=256706272481&text=Good%20morning
+2025-10-30 22:32:17,823 - INFO - [send_whatsapp_message] - Waiting 30 seconds for WhatsApp Web to load...
+2025-10-30 22:32:47,827 - INFO - [send_whatsapp_message] - Checking for WhatsApp Web login verification...
+2025-10-30 22:32:47,829 - INFO - [find_element] - Finding element: xpath=//span[@data-icon="send"] (timeout: 10s)
+2025-10-30 22:32:57,975 - ERROR - [find_element] - Element not found: //span[@data-icon="send"] - Message: 
+Stacktrace:
+0   chromedriver                        0x000000010d212108 chromedriver + 6119688
+1   chromedriver                        0x000000010d20980a chromedriver + 6084618
+2   chromedriver                        0x000000010cca51a6 chromedriver + 430502
+3   chromedriver                        0x000000010ccf78a1 chromedriver + 768161
+4   chromedriver                        0x000000010ccf7b61 chromedriver + 768865
+5   chromedriver                        0x000000010cd48034 chromedriver + 1097780
+6   chromedriver                        0x000000010cd1de2d chromedriver + 925229
+7   chromedriver                        0x000000010cd45378 chromedriver + 1086328
+8   chromedriver                        0x000000010cd1dbd3 chromedriver + 924627
+9   chromedriver                        0x000000010cce9c0b chromedriver + 711691
+10  chromedriver                        0x000000010ccea8d1 chromedriver + 714961
+11  chromedriver                        0x000000010d1cf5d0 chromedriver + 5846480
+12  chromedriver                        0x000000010d1d3865 chromedriver + 5863525
+13  chromedriver                        0x000000010d1aada7 chromedriver + 5696935
+14  chromedriver                        0x000000010d1d42ff chromedriver + 5866239
+15  chromedriver                        0x000000010d19a204 chromedriver + 5628420
+16  chromedriver                        0x000000010d1f6828 chromedriver + 6006824
+17  chromedriver                        0x000000010d1f69ed chromedriver + 6007277
+18  chromedriver                        0x000000010d2093e1 chromedriver + 6083553
+19  libsystem_pthread.dylib             0x00007ff8130bc1d3 _pthread_start + 125
+20  libsystem_pthread.dylib             0x00007ff8130b7bd3 thread_start + 15
+
+2025-10-30 22:32:57,978 - WARNING - [send_whatsapp_message] - Send button not found, trying fallback method...
+2025-10-30 22:33:00,629 - INFO - [send_whatsapp_message] - WhatsApp message sent (fallback) to 256706272481
+2025-10-30 22:33:00,629 - INFO - [cleanup] - Starting cleanup...
+2025-10-30 22:33:01,162 - INFO - [cleanup] - Browser closed
+2025-10-30 22:33:01,162 - INFO - [cleanup] - ============================================================
+2025-10-30 22:33:01,163 - INFO - [cleanup] - Agent cleanup complete
+2025-10-30 22:33:01,163 - INFO - [cleanup] - ============================================================
+2025-10-30 22:33:21,079 - INFO - [__init__] - ============================================================
+2025-10-30 22:33:21,079 - INFO - [__init__] - Unified Automation Agent Initialized
+2025-10-30 22:33:21,079 - INFO - [__init__] - System: Darwin
+2025-10-30 22:33:21,079 - INFO - [__init__] - Timestamp: 2025-10-30T22:33:21.079715
+2025-10-30 22:33:21,079 - INFO - [__init__] - ============================================================
+2025-10-30 22:33:21,080 - INFO - [send_whatsapp_message] - Preparing to send WhatsApp message to: 256706272481
+2025-10-30 22:33:21,080 - INFO - [init_browser] - Initializing browser...
+2025-10-30 22:33:21,080 - INFO - [log] - ====== WebDriver manager ======
+2025-10-30 22:33:21,420 - INFO - [log] - Get LATEST chromedriver version for google-chrome
+2025-10-30 22:33:21,813 - INFO - [log] - Get LATEST chromedriver version for google-chrome
+2025-10-30 22:33:22,277 - INFO - [log] - Driver [/Users/esthermboa/.wdm/drivers/chromedriver/mac64/141.0.7390.122/chromedriver-mac-x64/chromedriver] found in cache
+2025-10-30 22:33:24,061 - INFO - [init_browser] - ChromeDriver initialized with webdriver-manager
+2025-10-30 22:33:24,092 - INFO - [init_browser] - Browser initialized successfully
+2025-10-30 22:33:24,093 - INFO - [send_whatsapp_message] - Navigating to WhatsApp Web: https://web.whatsapp.com/send?phone=256706272481&text=Good%20morning
+2025-10-30 22:33:24,093 - INFO - [navigate_to] - Navigating to: https://web.whatsapp.com/send?phone=256706272481&text=Good%20morning
+2025-10-30 22:33:26,571 - INFO - [navigate_to] - Successfully navigated to: https://web.whatsapp.com/send?phone=256706272481&text=Good%20morning
+2025-10-30 22:33:28,574 - INFO - [send_whatsapp_message] - Waiting 30 seconds for WhatsApp Web to load...
+2025-10-30 22:33:58,578 - INFO - [send_whatsapp_message] - Checking for WhatsApp Web login verification...
+2025-10-30 22:33:58,578 - INFO - [find_element] - Finding element: xpath=//span[@data-icon="send"] (timeout: 10s)
+2025-10-30 22:34:08,859 - ERROR - [find_element] - Element not found: //span[@data-icon="send"] - Message: 
+Stacktrace:
+0   chromedriver                        0x0000000101b30108 chromedriver + 6119688
+1   chromedriver                        0x0000000101b2780a chromedriver + 6084618
+2   chromedriver                        0x00000001015c31a6 chromedriver + 430502
+3   chromedriver                        0x00000001016158a1 chromedriver + 768161
+4   chromedriver                        0x0000000101615b61 chromedriver + 768865
+5   chromedriver                        0x0000000101666034 chromedriver + 1097780
+6   chromedriver                        0x000000010163be2d chromedriver + 925229
+7   chromedriver                        0x0000000101663378 chromedriver + 1086328
+8   chromedriver                        0x000000010163bbd3 chromedriver + 924627
+9   chromedriver                        0x0000000101607c0b chromedriver + 711691
+10  chromedriver                        0x00000001016088d1 chromedriver + 714961
+11  chromedriver                        0x0000000101aed5d0 chromedriver + 5846480
+12  chromedriver                        0x0000000101af1865 chromedriver + 5863525
+13  chromedriver                        0x0000000101ac8da7 chromedriver + 5696935
+14  chromedriver                        0x0000000101af22ff chromedriver + 5866239
+15  chromedriver                        0x0000000101ab8204 chromedriver + 5628420
+16  chromedriver                        0x0000000101b14828 chromedriver + 6006824
+17  chromedriver                        0x0000000101b149ed chromedriver + 6007277
+18  chromedriver                        0x0000000101b273e1 chromedriver + 6083553
+19  libsystem_pthread.dylib             0x00007ff8130bc1d3 _pthread_start + 125
+20  libsystem_pthread.dylib             0x00007ff8130b7bd3 thread_start + 15
+
+2025-10-30 22:34:08,859 - WARNING - [send_whatsapp_message] - Send button not found, trying fallback method...
+2025-10-30 22:34:11,458 - INFO - [send_whatsapp_message] - WhatsApp message sent (fallback) to 256706272481
+2025-10-30 22:34:11,493 - INFO - [cleanup] - Starting cleanup...
+2025-10-30 22:34:11,728 - INFO - [cleanup] - Browser closed
+2025-10-30 22:34:11,729 - INFO - [cleanup] - ============================================================
+2025-10-30 22:34:11,729 - INFO - [cleanup] - Agent cleanup complete
+2025-10-30 22:34:11,729 - INFO - [cleanup] - ============================================================
+2025-10-30 22:36:32,069 - INFO - [__init__] - ============================================================
+2025-10-30 22:36:32,069 - INFO - [__init__] - Unified Automation Agent Initialized
+2025-10-30 22:36:32,069 - INFO - [__init__] - System: Darwin
+2025-10-30 22:36:32,069 - INFO - [__init__] - Timestamp: 2025-10-30T22:36:32.069450
+2025-10-30 22:36:32,069 - INFO - [__init__] - ============================================================
+2025-10-30 22:36:32,069 - INFO - [cleanup] - Starting cleanup...
+2025-10-30 22:36:32,069 - INFO - [cleanup] - ============================================================
+2025-10-30 22:36:32,069 - INFO - [cleanup] - Agent cleanup complete
+2025-10-30 22:36:32,069 - INFO - [cleanup] - ============================================================
+2025-10-30 22:45:25,883 - INFO - [__init__] - ============================================================
+2025-10-30 22:45:25,884 - INFO - [__init__] - Unified Automation Agent Initialized
+2025-10-30 22:45:25,884 - INFO - [__init__] - System: Darwin
+2025-10-30 22:45:25,884 - INFO - [__init__] - Timestamp: 2025-10-30T22:45:25.884651
+2025-10-30 22:45:25,884 - INFO - [__init__] - ============================================================
+2025-10-30 22:45:25,885 - INFO - [send_whatsapp_message] - Preparing to send WhatsApp message to: 256706272481
+2025-10-30 22:45:25,885 - INFO - [init_browser] - Initializing browser...
+2025-10-30 22:45:25,885 - INFO - [init_browser] - Using Chrome profile directory: /Users/esthermboa/Library/Application Support/Google/Chrome
+2025-10-30 22:45:25,885 - INFO - [init_browser] - Using Chrome profile: Profile 3
+2025-10-30 22:45:25,885 - INFO - [log] - ====== WebDriver manager ======
+2025-10-30 22:45:26,195 - INFO - [log] - Get LATEST chromedriver version for google-chrome
+2025-10-30 22:45:26,521 - INFO - [log] - Get LATEST chromedriver version for google-chrome
+2025-10-30 22:45:26,928 - INFO - [log] - Driver [/Users/esthermboa/.wdm/drivers/chromedriver/mac64/141.0.7390.122/chromedriver-mac-x64/chromedriver] found in cache
+2025-10-30 22:45:27,412 - WARNING - [init_browser] - webdriver-manager failed: Message: session not created: probably user data directory is already in use, please specify a unique value for --user-data-dir argument, or don't use --user-data-dir; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#sessionnotcreatedexception
+Stacktrace:
+0   chromedriver                        0x000000010dcf8108 chromedriver + 6119688
+1   chromedriver                        0x000000010dcef80a chromedriver + 6084618
+2   chromedriver                        0x000000010d78b1a6 chromedriver + 430502
+3   chromedriver                        0x000000010d7c6a7a chromedriver + 674426
+4   chromedriver                        0x000000010d7c2496 chromedriver + 656534
+5   chromedriver                        0x000000010d812358 chromedriver + 983896
+6   chromedriver                        0x000000010d8119d6 chromedriver + 981462
+7   chromedriver                        0x000000010d803bd3 chromedriver + 924627
+8   chromedriver                        0x000000010d7cfc0b chromedriver + 711691
+9   chromedriver                        0x000000010d7d08d1 chromedriver + 714961
+10  chromedriver                        0x000000010dcb55d0 chromedriver + 5846480
+11  chromedriver                        0x000000010dcb9865 chromedriver + 5863525
+12  chromedriver                        0x000000010dc90da7 chromedriver + 5696935
+13  chromedriver                        0x000000010dcba2ff chromedriver + 5866239
+14  chromedriver                        0x000000010dc80204 chromedriver + 5628420
+15  chromedriver                        0x000000010dcdc828 chromedriver + 6006824
+16  chromedriver                        0x000000010dcdc9ed chromedriver + 6007277
+17  chromedriver                        0x000000010dcef3e1 chromedriver + 6083553
+18  libsystem_pthread.dylib             0x00007ff8130bc1d3 _pthread_start + 125
+19  libsystem_pthread.dylib             0x00007ff8130b7bd3 thread_start + 15
+, trying default ChromeDriver
+2025-10-30 22:45:44,699 - ERROR - [init_browser] - Browser initialization failed: Message: session not created: probably user data directory is already in use, please specify a unique value for --user-data-dir argument, or don't use --user-data-dir; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#sessionnotcreatedexception
+Stacktrace:
+0   chromedriver                        0x00000001033e0108 chromedriver + 6119688
+1   chromedriver                        0x00000001033d780a chromedriver + 6084618
+2   chromedriver                        0x0000000102e731a6 chromedriver + 430502
+3   chromedriver                        0x0000000102eaea7a chromedriver + 674426
+4   chromedriver                        0x0000000102eaa496 chromedriver + 656534
+5   chromedriver                        0x0000000102efa358 chromedriver + 983896
+6   chromedriver                        0x0000000102ef99d6 chromedriver + 981462
+7   chromedriver                        0x0000000102eebbd3 chromedriver + 924627
+8   chromedriver                        0x0000000102eb7c0b chromedriver + 711691
+9   chromedriver                        0x0000000102eb88d1 chromedriver + 714961
+10  chromedriver                        0x000000010339d5d0 chromedriver + 5846480
+11  chromedriver                        0x00000001033a1865 chromedriver + 5863525
+12  chromedriver                        0x0000000103378da7 chromedriver + 5696935
+13  chromedriver                        0x00000001033a22ff chromedriver + 5866239
+14  chromedriver                        0x0000000103368204 chromedriver + 5628420
+15  chromedriver                        0x00000001033c4828 chromedriver + 6006824
+16  chromedriver                        0x00000001033c49ed chromedriver + 6007277
+17  chromedriver                        0x00000001033d73e1 chromedriver + 6083553
+18  libsystem_pthread.dylib             0x00007ff8130bc1d3 _pthread_start + 125
+19  libsystem_pthread.dylib             0x00007ff8130b7bd3 thread_start + 15
+
+2025-10-30 22:45:44,716 - INFO - [send_whatsapp_message] - Navigating to WhatsApp Web: https://web.whatsapp.com/send?phone=256706272481&text=Good%20morning
+2025-10-30 22:45:44,717 - INFO - [init_browser] - Initializing browser...
+2025-10-30 22:45:44,718 - INFO - [init_browser] - Using Chrome profile directory: /Users/esthermboa/Library/Application Support/Google/Chrome
+2025-10-30 22:45:44,718 - INFO - [init_browser] - Using Chrome profile: Profile 3
+2025-10-30 22:45:44,720 - INFO - [log] - ====== WebDriver manager ======
+2025-10-30 22:45:45,329 - INFO - [log] - Get LATEST chromedriver version for google-chrome
+2025-10-30 22:45:45,865 - INFO - [log] - Get LATEST chromedriver version for google-chrome
+2025-10-30 22:45:47,205 - INFO - [log] - Driver [/Users/esthermboa/.wdm/drivers/chromedriver/mac64/141.0.7390.122/chromedriver-mac-x64/chromedriver] found in cache
+2025-10-30 22:45:47,561 - WARNING - [init_browser] - webdriver-manager failed: Message: session not created: probably user data directory is already in use, please specify a unique value for --user-data-dir argument, or don't use --user-data-dir; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#sessionnotcreatedexception
+Stacktrace:
+0   chromedriver                        0x000000010141e108 chromedriver + 6119688
+1   chromedriver                        0x000000010141580a chromedriver + 6084618
+2   chromedriver                        0x0000000100eb11a6 chromedriver + 430502
+3   chromedriver                        0x0000000100eeca7a chromedriver + 674426
+4   chromedriver                        0x0000000100ee8496 chromedriver + 656534
+5   chromedriver                        0x0000000100f38358 chromedriver + 983896
+6   chromedriver                        0x0000000100f379d6 chromedriver + 981462
+7   chromedriver                        0x0000000100f29bd3 chromedriver + 924627
+8   chromedriver                        0x0000000100ef5c0b chromedriver + 711691
+9   chromedriver                        0x0000000100ef68d1 chromedriver + 714961
+10  chromedriver                        0x00000001013db5d0 chromedriver + 5846480
+11  chromedriver                        0x00000001013df865 chromedriver + 5863525
+12  chromedriver                        0x00000001013b6da7 chromedriver + 5696935
+13  chromedriver                        0x00000001013e02ff chromedriver + 5866239
+14  chromedriver                        0x00000001013a6204 chromedriver + 5628420
+15  chromedriver                        0x0000000101402828 chromedriver + 6006824
+16  chromedriver                        0x00000001014029ed chromedriver + 6007277
+17  chromedriver                        0x00000001014153e1 chromedriver + 6083553
+18  libsystem_pthread.dylib             0x00007ff8130bc1d3 _pthread_start + 125
+19  libsystem_pthread.dylib             0x00007ff8130b7bd3 thread_start + 15
+, trying default ChromeDriver
+2025-10-30 22:45:48,579 - ERROR - [init_browser] - Browser initialization failed: Message: session not created: probably user data directory is already in use, please specify a unique value for --user-data-dir argument, or don't use --user-data-dir; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#sessionnotcreatedexception
+Stacktrace:
+0   chromedriver                        0x0000000105894108 chromedriver + 6119688
+1   chromedriver                        0x000000010588b80a chromedriver + 6084618
+2   chromedriver                        0x00000001053271a6 chromedriver + 430502
+3   chromedriver                        0x0000000105362a7a chromedriver + 674426
+4   chromedriver                        0x000000010535e496 chromedriver + 656534
+5   chromedriver                        0x00000001053ae358 chromedriver + 983896
+6   chromedriver                        0x00000001053ad9d6 chromedriver + 981462
+7   chromedriver                        0x000000010539fbd3 chromedriver + 924627
+8   chromedriver                        0x000000010536bc0b chromedriver + 711691
+9   chromedriver                        0x000000010536c8d1 chromedriver + 714961
+10  chromedriver                        0x00000001058515d0 chromedriver + 5846480
+11  chromedriver                        0x0000000105855865 chromedriver + 5863525
+12  chromedriver                        0x000000010582cda7 chromedriver + 5696935
+13  chromedriver                        0x00000001058562ff chromedriver + 5866239
+14  chromedriver                        0x000000010581c204 chromedriver + 5628420
+15  chromedriver                        0x0000000105878828 chromedriver + 6006824
+16  chromedriver                        0x00000001058789ed chromedriver + 6007277
+17  chromedriver                        0x000000010588b3e1 chromedriver + 6083553
+18  libsystem_pthread.dylib             0x00007ff8130bc1d3 _pthread_start + 125
+19  libsystem_pthread.dylib             0x00007ff8130b7bd3 thread_start + 15
+
+2025-10-30 22:45:48,580 - INFO - [navigate_to] - Navigating to: https://web.whatsapp.com/send?phone=256706272481&text=Good%20morning
+2025-10-30 22:45:48,580 - ERROR - [navigate_to] - Navigation failed: 'NoneType' object has no attribute 'set_page_load_timeout'
+2025-10-30 22:45:48,580 - INFO - [send_whatsapp_message] - Waiting 30 seconds for WhatsApp Web to load...
+2025-10-30 22:46:18,585 - INFO - [send_whatsapp_message] - Checking for WhatsApp Web login verification...
+2025-10-30 22:46:18,587 - INFO - [find_element] - Finding element: xpath=//span[@data-icon="send"] (timeout: 10s)
+2025-10-30 22:46:18,588 - ERROR - [find_element] - Element not found: //span[@data-icon="send"] - 'NoneType' object has no attribute 'find_element'
+2025-10-30 22:46:18,588 - WARNING - [send_whatsapp_message] - Send button not found, trying fallback method...
+2025-10-30 22:46:21,214 - INFO - [send_whatsapp_message] - WhatsApp message sent (fallback) to 256706272481
+2025-10-30 22:46:21,214 - INFO - [cleanup] - Starting cleanup...
+2025-10-30 22:46:21,214 - INFO - [cleanup] - ============================================================
+2025-10-30 22:46:21,215 - INFO - [cleanup] - Agent cleanup complete
+2025-10-30 22:46:21,215 - INFO - [cleanup] - ============================================================
+2025-10-30 22:48:17,454 - INFO - [__init__] - ============================================================
+2025-10-30 22:48:17,455 - INFO - [__init__] - Unified Automation Agent Initialized
+2025-10-30 22:48:17,455 - INFO - [__init__] - System: Darwin
+2025-10-30 22:48:17,455 - INFO - [__init__] - Timestamp: 2025-10-30T22:48:17.455665
+2025-10-30 22:48:17,455 - INFO - [__init__] - ============================================================
+2025-10-30 22:48:17,456 - INFO - [send_whatsapp_message] - Preparing to send WhatsApp message to: 256706272481
+2025-10-30 22:48:17,456 - INFO - [init_browser] - Initializing browser...
+2025-10-30 22:48:17,456 - INFO - [init_browser] - Using Chrome profile directory: /Users/esthermboa/Library/Application Support/Google/Chrome
+2025-10-30 22:48:17,456 - INFO - [init_browser] - Using Chrome profile: Profile 1
+2025-10-30 22:48:17,456 - INFO - [log] - ====== WebDriver manager ======
+2025-10-30 22:48:17,697 - INFO - [log] - Get LATEST chromedriver version for google-chrome
+2025-10-30 22:48:18,101 - INFO - [log] - Get LATEST chromedriver version for google-chrome
+2025-10-30 22:48:18,414 - INFO - [log] - Driver [/Users/esthermboa/.wdm/drivers/chromedriver/mac64/141.0.7390.122/chromedriver-mac-x64/chromedriver] found in cache
+2025-10-30 22:48:18,868 - WARNING - [init_browser] - webdriver-manager failed: Message: session not created: probably user data directory is already in use, please specify a unique value for --user-data-dir argument, or don't use --user-data-dir; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#sessionnotcreatedexception
+Stacktrace:
+0   chromedriver                        0x00000001046d5108 chromedriver + 6119688
+1   chromedriver                        0x00000001046cc80a chromedriver + 6084618
+2   chromedriver                        0x00000001041681a6 chromedriver + 430502
+3   chromedriver                        0x00000001041a3a7a chromedriver + 674426
+4   chromedriver                        0x000000010419f496 chromedriver + 656534
+5   chromedriver                        0x00000001041ef358 chromedriver + 983896
+6   chromedriver                        0x00000001041ee9d6 chromedriver + 981462
+7   chromedriver                        0x00000001041e0bd3 chromedriver + 924627
+8   chromedriver                        0x00000001041acc0b chromedriver + 711691
+9   chromedriver                        0x00000001041ad8d1 chromedriver + 714961
+10  chromedriver                        0x00000001046925d0 chromedriver + 5846480
+11  chromedriver                        0x0000000104696865 chromedriver + 5863525
+12  chromedriver                        0x000000010466dda7 chromedriver + 5696935
+13  chromedriver                        0x00000001046972ff chromedriver + 5866239
+14  chromedriver                        0x000000010465d204 chromedriver + 5628420
+15  chromedriver                        0x00000001046b9828 chromedriver + 6006824
+16  chromedriver                        0x00000001046b99ed chromedriver + 6007277
+17  chromedriver                        0x00000001046cc3e1 chromedriver + 6083553
+18  libsystem_pthread.dylib             0x00007ff8130bc1d3 _pthread_start + 125
+19  libsystem_pthread.dylib             0x00007ff8130b7bd3 thread_start + 15
+, trying default ChromeDriver
+2025-10-30 22:48:20,486 - ERROR - [init_browser] - Browser initialization failed: Message: session not created: probably user data directory is already in use, please specify a unique value for --user-data-dir argument, or don't use --user-data-dir; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#sessionnotcreatedexception
+Stacktrace:
+0   chromedriver                        0x0000000100d25108 chromedriver + 6119688
+1   chromedriver                        0x0000000100d1c80a chromedriver + 6084618
+2   chromedriver                        0x00000001007b81a6 chromedriver + 430502
+3   chromedriver                        0x00000001007f3a7a chromedriver + 674426
+4   chromedriver                        0x00000001007ef496 chromedriver + 656534
+5   chromedriver                        0x000000010083f358 chromedriver + 983896
+6   chromedriver                        0x000000010083e9d6 chromedriver + 981462
+7   chromedriver                        0x0000000100830bd3 chromedriver + 924627
+8   chromedriver                        0x00000001007fcc0b chromedriver + 711691
+9   chromedriver                        0x00000001007fd8d1 chromedriver + 714961
+10  chromedriver                        0x0000000100ce25d0 chromedriver + 5846480
+11  chromedriver                        0x0000000100ce6865 chromedriver + 5863525
+12  chromedriver                        0x0000000100cbdda7 chromedriver + 5696935
+13  chromedriver                        0x0000000100ce72ff chromedriver + 5866239
+14  chromedriver                        0x0000000100cad204 chromedriver + 5628420
+15  chromedriver                        0x0000000100d09828 chromedriver + 6006824
+16  chromedriver                        0x0000000100d099ed chromedriver + 6007277
+17  chromedriver                        0x0000000100d1c3e1 chromedriver + 6083553
+18  libsystem_pthread.dylib             0x00007ff8130bc1d3 _pthread_start + 125
+19  libsystem_pthread.dylib             0x00007ff8130b7bd3 thread_start + 15
+
+2025-10-30 22:48:20,487 - INFO - [send_whatsapp_message] - Navigating to WhatsApp Web: https://web.whatsapp.com/send?phone=256706272481&text=Good%20morning
+2025-10-30 22:48:20,488 - INFO - [init_browser] - Initializing browser...
+2025-10-30 22:48:20,488 - INFO - [init_browser] - Using Chrome profile directory: /Users/esthermboa/Library/Application Support/Google/Chrome
+2025-10-30 22:48:20,488 - INFO - [init_browser] - Using Chrome profile: Profile 1
+2025-10-30 22:48:20,488 - INFO - [log] - ====== WebDriver manager ======
+2025-10-30 22:48:21,547 - INFO - [log] - Get LATEST chromedriver version for google-chrome
+2025-10-30 22:48:22,007 - INFO - [log] - Get LATEST chromedriver version for google-chrome
+2025-10-30 22:48:22,397 - INFO - [log] - Driver [/Users/esthermboa/.wdm/drivers/chromedriver/mac64/141.0.7390.122/chromedriver-mac-x64/chromedriver] found in cache
+2025-10-30 22:48:22,874 - WARNING - [init_browser] - webdriver-manager failed: Message: session not created: probably user data directory is already in use, please specify a unique value for --user-data-dir argument, or don't use --user-data-dir; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#sessionnotcreatedexception
+Stacktrace:
+0   chromedriver                        0x0000000102639108 chromedriver + 6119688
+1   chromedriver                        0x000000010263080a chromedriver + 6084618
+2   chromedriver                        0x00000001020cc1a6 chromedriver + 430502
+3   chromedriver                        0x0000000102107a7a chromedriver + 674426
+4   chromedriver                        0x0000000102103496 chromedriver + 656534
+5   chromedriver                        0x0000000102153358 chromedriver + 983896
+6   chromedriver                        0x00000001021529d6 chromedriver + 981462
+7   chromedriver                        0x0000000102144bd3 chromedriver + 924627
+8   chromedriver                        0x0000000102110c0b chromedriver + 711691
+9   chromedriver                        0x00000001021118d1 chromedriver + 714961
+10  chromedriver                        0x00000001025f65d0 chromedriver + 5846480
+11  chromedriver                        0x00000001025fa865 chromedriver + 5863525
+12  chromedriver                        0x00000001025d1da7 chromedriver + 5696935
+13  chromedriver                        0x00000001025fb2ff chromedriver + 5866239
+14  chromedriver                        0x00000001025c1204 chromedriver + 5628420
+15  chromedriver                        0x000000010261d828 chromedriver + 6006824
+16  chromedriver                        0x000000010261d9ed chromedriver + 6007277
+17  chromedriver                        0x00000001026303e1 chromedriver + 6083553
+18  libsystem_pthread.dylib             0x00007ff8130bc1d3 _pthread_start + 125
+19  libsystem_pthread.dylib             0x00007ff8130b7bd3 thread_start + 15
+, trying default ChromeDriver
+2025-10-30 22:48:23,979 - ERROR - [init_browser] - Browser initialization failed: Message: session not created: probably user data directory is already in use, please specify a unique value for --user-data-dir argument, or don't use --user-data-dir; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#sessionnotcreatedexception
+Stacktrace:
+0   chromedriver                        0x0000000108be7108 chromedriver + 6119688
+1   chromedriver                        0x0000000108bde80a chromedriver + 6084618
+2   chromedriver                        0x000000010867a1a6 chromedriver + 430502
+3   chromedriver                        0x00000001086b5a7a chromedriver + 674426
+4   chromedriver                        0x00000001086b1496 chromedriver + 656534
+5   chromedriver                        0x0000000108701358 chromedriver + 983896
+6   chromedriver                        0x00000001087009d6 chromedriver + 981462
+7   chromedriver                        0x00000001086f2bd3 chromedriver + 924627
+8   chromedriver                        0x00000001086bec0b chromedriver + 711691
+9   chromedriver                        0x00000001086bf8d1 chromedriver + 714961
+10  chromedriver                        0x0000000108ba45d0 chromedriver + 5846480
+11  chromedriver                        0x0000000108ba8865 chromedriver + 5863525
+12  chromedriver                        0x0000000108b7fda7 chromedriver + 5696935
+13  chromedriver                        0x0000000108ba92ff chromedriver + 5866239
+14  chromedriver                        0x0000000108b6f204 chromedriver + 5628420
+15  chromedriver                        0x0000000108bcb828 chromedriver + 6006824
+16  chromedriver                        0x0000000108bcb9ed chromedriver + 6007277
+17  chromedriver                        0x0000000108bde3e1 chromedriver + 6083553
+18  libsystem_pthread.dylib             0x00007ff8130bc1d3 _pthread_start + 125
+19  libsystem_pthread.dylib             0x00007ff8130b7bd3 thread_start + 15
+
+2025-10-30 22:48:23,981 - INFO - [navigate_to] - Navigating to: https://web.whatsapp.com/send?phone=256706272481&text=Good%20morning
+2025-10-30 22:48:23,981 - ERROR - [navigate_to] - Navigation failed: 'NoneType' object has no attribute 'set_page_load_timeout'
+2025-10-30 22:48:23,981 - INFO - [send_whatsapp_message] - Waiting 30 seconds for WhatsApp Web to load...
+2025-10-30 22:48:53,985 - INFO - [send_whatsapp_message] - Checking for WhatsApp Web login verification...
+2025-10-30 22:48:53,986 - INFO - [find_element] - Finding element: xpath=//span[@data-icon="send"] (timeout: 10s)
+2025-10-30 22:48:53,987 - ERROR - [find_element] - Element not found: //span[@data-icon="send"] - 'NoneType' object has no attribute 'find_element'
+2025-10-30 22:48:53,987 - WARNING - [send_whatsapp_message] - Send button not found, trying fallback method...
+2025-10-30 22:48:56,586 - INFO - [send_whatsapp_message] - WhatsApp message sent (fallback) to 256706272481
+2025-10-30 22:48:56,586 - INFO - [cleanup] - Starting cleanup...
+2025-10-30 22:48:56,587 - INFO - [cleanup] - ============================================================
+2025-10-30 22:48:56,587 - INFO - [cleanup] - Agent cleanup complete
+2025-10-30 22:48:56,587 - INFO - [cleanup] - ============================================================
+2025-10-30 22:52:03,767 - INFO - [__init__] - ============================================================
+2025-10-30 22:52:03,768 - INFO - [__init__] - Unified Automation Agent Initialized
+2025-10-30 22:52:03,768 - INFO - [__init__] - System: Darwin
+2025-10-30 22:52:03,768 - INFO - [__init__] - Timestamp: 2025-10-30T22:52:03.768740
+2025-10-30 22:52:03,768 - INFO - [__init__] - ============================================================
+2025-10-30 22:52:03,769 - INFO - [send_whatsapp_message] - Preparing to send WhatsApp message to: 256706272481
+2025-10-30 22:52:03,769 - INFO - [init_browser] - Initializing browser...
+2025-10-30 22:52:03,769 - INFO - [init_browser] - Using Chrome profile directory: /Users/esthermboa/Library/Application Support/Google/Chrome
+2025-10-30 22:52:03,769 - INFO - [init_browser] - Using Chrome profile: Profile 1
+2025-10-30 22:52:03,769 - INFO - [log] - ====== WebDriver manager ======
+2025-10-30 22:52:04,090 - INFO - [log] - Get LATEST chromedriver version for google-chrome
+2025-10-30 22:52:04,428 - INFO - [log] - Get LATEST chromedriver version for google-chrome
+2025-10-30 22:52:04,800 - INFO - [log] - Driver [/Users/esthermboa/.wdm/drivers/chromedriver/mac64/141.0.7390.122/chromedriver-mac-x64/chromedriver] found in cache
+2025-10-30 22:53:05,446 - WARNING - [init_browser] - webdriver-manager failed: Message: session not created: DevToolsActivePort file doesn't exist; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#sessionnotcreatedexception
+Stacktrace:
+0   chromedriver                        0x000000010e56e108 chromedriver + 6119688
+1   chromedriver                        0x000000010e56580a chromedriver + 6084618
+2   chromedriver                        0x000000010e0011a6 chromedriver + 430502
+3   chromedriver                        0x000000010e0412ad chromedriver + 692909
+4   chromedriver                        0x000000010e03b64b chromedriver + 669259
+5   chromedriver                        0x000000010e038496 chromedriver + 656534
+6   chromedriver                        0x000000010e088358 chromedriver + 983896
+7   chromedriver                        0x000000010e0879d6 chromedriver + 981462
+8   chromedriver                        0x000000010e079bd3 chromedriver + 924627
+9   chromedriver                        0x000000010e045c0b chromedriver + 711691
+10  chromedriver                        0x000000010e0468d1 chromedriver + 714961
+11  chromedriver                        0x000000010e52b5d0 chromedriver + 5846480
+12  chromedriver                        0x000000010e52f865 chromedriver + 5863525
+13  chromedriver                        0x000000010e506da7 chromedriver + 5696935
+14  chromedriver                        0x000000010e5302ff chromedriver + 5866239
+15  chromedriver                        0x000000010e4f6204 chromedriver + 5628420
+16  chromedriver                        0x000000010e552828 chromedriver + 6006824
+17  chromedriver                        0x000000010e5529ed chromedriver + 6007277
+18  chromedriver                        0x000000010e5653e1 chromedriver + 6083553
+19  libsystem_pthread.dylib             0x00007ff8130bc1d3 _pthread_start + 125
+20  libsystem_pthread.dylib             0x00007ff8130b7bd3 thread_start + 15
+, trying default ChromeDriver
+2025-10-30 22:54:06,277 - ERROR - [init_browser] - Browser initialization failed: Message: session not created: DevToolsActivePort file doesn't exist; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#sessionnotcreatedexception
+Stacktrace:
+0   chromedriver                        0x000000010c488108 chromedriver + 6119688
+1   chromedriver                        0x000000010c47f80a chromedriver + 6084618
+2   chromedriver                        0x000000010bf1b1a6 chromedriver + 430502
+3   chromedriver                        0x000000010bf5b2ad chromedriver + 692909
+4   chromedriver                        0x000000010bf5564b chromedriver + 669259
+5   chromedriver                        0x000000010bf52496 chromedriver + 656534
+6   chromedriver                        0x000000010bfa2358 chromedriver + 983896
+7   chromedriver                        0x000000010bfa19d6 chromedriver + 981462
+8   chromedriver                        0x000000010bf93bd3 chromedriver + 924627
+9   chromedriver                        0x000000010bf5fc0b chromedriver + 711691
+10  chromedriver                        0x000000010bf608d1 chromedriver + 714961
+11  chromedriver                        0x000000010c4455d0 chromedriver + 5846480
+12  chromedriver                        0x000000010c449865 chromedriver + 5863525
+13  chromedriver                        0x000000010c420da7 chromedriver + 5696935
+14  chromedriver                        0x000000010c44a2ff chromedriver + 5866239
+15  chromedriver                        0x000000010c410204 chromedriver + 5628420
+16  chromedriver                        0x000000010c46c828 chromedriver + 6006824
+17  chromedriver                        0x000000010c46c9ed chromedriver + 6007277
+18  chromedriver                        0x000000010c47f3e1 chromedriver + 6083553
+19  libsystem_pthread.dylib             0x00007ff8130bc1d3 _pthread_start + 125
+20  libsystem_pthread.dylib             0x00007ff8130b7bd3 thread_start + 15
+
+2025-10-30 22:54:06,279 - INFO - [send_whatsapp_message] - Navigating to WhatsApp Web: https://web.whatsapp.com/send?phone=256706272481&text=Good%20morning
+2025-10-30 22:54:06,279 - INFO - [init_browser] - Initializing browser...
+2025-10-30 22:54:06,279 - INFO - [init_browser] - Using Chrome profile directory: /Users/esthermboa/Library/Application Support/Google/Chrome
+2025-10-30 22:54:06,279 - INFO - [init_browser] - Using Chrome profile: Profile 1
+2025-10-30 22:54:06,281 - INFO - [log] - ====== WebDriver manager ======
+2025-10-30 22:54:06,651 - INFO - [log] - Get LATEST chromedriver version for google-chrome
+2025-10-30 22:54:07,075 - INFO - [log] - Get LATEST chromedriver version for google-chrome
+2025-10-30 22:54:07,499 - INFO - [log] - Driver [/Users/esthermboa/.wdm/drivers/chromedriver/mac64/141.0.7390.122/chromedriver-mac-x64/chromedriver] found in cache
+2025-10-30 22:54:30,041 - INFO - [cleanup] - Starting cleanup...
+2025-10-30 22:54:30,042 - INFO - [cleanup] - ============================================================
+2025-10-30 22:54:30,043 - INFO - [cleanup] - Agent cleanup complete
+2025-10-30 22:54:30,043 - INFO - [cleanup] - ============================================================
+2025-10-30 22:58:56,418 - INFO - [__init__] - ============================================================
+2025-10-30 22:58:56,419 - INFO - [__init__] - Unified Automation Agent Initialized
+2025-10-30 22:58:56,419 - INFO - [__init__] - System: Darwin
+2025-10-30 22:58:56,420 - INFO - [__init__] - Timestamp: 2025-10-30T22:58:56.420034
+2025-10-30 22:58:56,420 - INFO - [__init__] - ============================================================
+2025-10-30 22:58:56,420 - INFO - [send_whatsapp_message] - Preparing to send WhatsApp message to: 256706272481
+2025-10-30 22:58:56,420 - INFO - [init_browser] - Initializing browser...
+2025-10-30 22:58:56,420 - INFO - [init_browser] - Using Chrome profile directory: /Users/esthermboa/Library/Application Support/Google/Chrome
+2025-10-30 22:58:56,420 - INFO - [init_browser] - Using Chrome profile: Profile 1
+2025-10-30 22:58:56,421 - INFO - [log] - ====== WebDriver manager ======
+2025-10-30 22:58:56,658 - INFO - [log] - Get LATEST chromedriver version for google-chrome
+2025-10-30 22:58:56,982 - INFO - [log] - Get LATEST chromedriver version for google-chrome
+2025-10-30 22:58:57,437 - INFO - [log] - Driver [/Users/esthermboa/.wdm/drivers/chromedriver/mac64/141.0.7390.122/chromedriver-mac-x64/chromedriver] found in cache
+2025-10-30 22:58:57,879 - WARNING - [init_browser] - webdriver-manager failed: Message: session not created: probably user data directory is already in use, please specify a unique value for --user-data-dir argument, or don't use --user-data-dir; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#sessionnotcreatedexception
+Stacktrace:
+0   chromedriver                        0x0000000107ba9108 chromedriver + 6119688
+1   chromedriver                        0x0000000107ba080a chromedriver + 6084618
+2   chromedriver                        0x000000010763c1a6 chromedriver + 430502
+3   chromedriver                        0x0000000107677a7a chromedriver + 674426
+4   chromedriver                        0x0000000107673496 chromedriver + 656534
+5   chromedriver                        0x00000001076c3358 chromedriver + 983896
+6   chromedriver                        0x00000001076c29d6 chromedriver + 981462
+7   chromedriver                        0x00000001076b4bd3 chromedriver + 924627
+8   chromedriver                        0x0000000107680c0b chromedriver + 711691
+9   chromedriver                        0x00000001076818d1 chromedriver + 714961
+10  chromedriver                        0x0000000107b665d0 chromedriver + 5846480
+11  chromedriver                        0x0000000107b6a865 chromedriver + 5863525
+12  chromedriver                        0x0000000107b41da7 chromedriver + 5696935
+13  chromedriver                        0x0000000107b6b2ff chromedriver + 5866239
+14  chromedriver                        0x0000000107b31204 chromedriver + 5628420
+15  chromedriver                        0x0000000107b8d828 chromedriver + 6006824
+16  chromedriver                        0x0000000107b8d9ed chromedriver + 6007277
+17  chromedriver                        0x0000000107ba03e1 chromedriver + 6083553
+18  libsystem_pthread.dylib             0x00007ff8130bc1d3 _pthread_start + 125
+19  libsystem_pthread.dylib             0x00007ff8130b7bd3 thread_start + 15
+, trying default ChromeDriver
+2025-10-30 22:58:59,275 - ERROR - [init_browser] - Browser initialization failed: Message: session not created: probably user data directory is already in use, please specify a unique value for --user-data-dir argument, or don't use --user-data-dir; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#sessionnotcreatedexception
+Stacktrace:
+0   chromedriver                        0x000000010af96108 chromedriver + 6119688
+1   chromedriver                        0x000000010af8d80a chromedriver + 6084618
+2   chromedriver                        0x000000010aa291a6 chromedriver + 430502
+3   chromedriver                        0x000000010aa64a7a chromedriver + 674426
+4   chromedriver                        0x000000010aa60496 chromedriver + 656534
+5   chromedriver                        0x000000010aab0358 chromedriver + 983896
+6   chromedriver                        0x000000010aaaf9d6 chromedriver + 981462
+7   chromedriver                        0x000000010aaa1bd3 chromedriver + 924627
+8   chromedriver                        0x000000010aa6dc0b chromedriver + 711691
+9   chromedriver                        0x000000010aa6e8d1 chromedriver + 714961
+10  chromedriver                        0x000000010af535d0 chromedriver + 5846480
+11  chromedriver                        0x000000010af57865 chromedriver + 5863525
+12  chromedriver                        0x000000010af2eda7 chromedriver + 5696935
+13  chromedriver                        0x000000010af582ff chromedriver + 5866239
+14  chromedriver                        0x000000010af1e204 chromedriver + 5628420
+15  chromedriver                        0x000000010af7a828 chromedriver + 6006824
+16  chromedriver                        0x000000010af7a9ed chromedriver + 6007277
+17  chromedriver                        0x000000010af8d3e1 chromedriver + 6083553
+18  libsystem_pthread.dylib             0x00007ff8130bc1d3 _pthread_start + 125
+19  libsystem_pthread.dylib             0x00007ff8130b7bd3 thread_start + 15
+
+2025-10-30 22:58:59,277 - INFO - [send_whatsapp_message] - Navigating to WhatsApp Web: https://web.whatsapp.com/send?phone=256706272481&text=Good%20morning
+2025-10-30 22:58:59,277 - INFO - [init_browser] - Initializing browser...
+2025-10-30 22:58:59,277 - INFO - [init_browser] - Using Chrome profile directory: /Users/esthermboa/Library/Application Support/Google/Chrome
+2025-10-30 22:58:59,278 - INFO - [init_browser] - Using Chrome profile: Profile 1
+2025-10-30 22:58:59,278 - INFO - [log] - ====== WebDriver manager ======
+2025-10-30 22:58:59,954 - INFO - [log] - Get LATEST chromedriver version for google-chrome
+2025-10-30 22:59:00,466 - INFO - [log] - Get LATEST chromedriver version for google-chrome
+2025-10-30 22:59:00,994 - INFO - [log] - Driver [/Users/esthermboa/.wdm/drivers/chromedriver/mac64/141.0.7390.122/chromedriver-mac-x64/chromedriver] found in cache
+2025-10-30 22:59:01,468 - WARNING - [init_browser] - webdriver-manager failed: Message: session not created: probably user data directory is already in use, please specify a unique value for --user-data-dir argument, or don't use --user-data-dir; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#sessionnotcreatedexception
+Stacktrace:
+0   chromedriver                        0x0000000103296108 chromedriver + 6119688
+1   chromedriver                        0x000000010328d80a chromedriver + 6084618
+2   chromedriver                        0x0000000102d291a6 chromedriver + 430502
+3   chromedriver                        0x0000000102d64a7a chromedriver + 674426
+4   chromedriver                        0x0000000102d60496 chromedriver + 656534
+5   chromedriver                        0x0000000102db0358 chromedriver + 983896
+6   chromedriver                        0x0000000102daf9d6 chromedriver + 981462
+7   chromedriver                        0x0000000102da1bd3 chromedriver + 924627
+8   chromedriver                        0x0000000102d6dc0b chromedriver + 711691
+9   chromedriver                        0x0000000102d6e8d1 chromedriver + 714961
+10  chromedriver                        0x00000001032535d0 chromedriver + 5846480
+11  chromedriver                        0x0000000103257865 chromedriver + 5863525
+12  chromedriver                        0x000000010322eda7 chromedriver + 5696935
+13  chromedriver                        0x00000001032582ff chromedriver + 5866239
+14  chromedriver                        0x000000010321e204 chromedriver + 5628420
+15  chromedriver                        0x000000010327a828 chromedriver + 6006824
+16  chromedriver                        0x000000010327a9ed chromedriver + 6007277
+17  chromedriver                        0x000000010328d3e1 chromedriver + 6083553
+18  libsystem_pthread.dylib             0x00007ff8130bc1d3 _pthread_start + 125
+19  libsystem_pthread.dylib             0x00007ff8130b7bd3 thread_start + 15
+, trying default ChromeDriver
+2025-10-30 22:59:02,784 - ERROR - [init_browser] - Browser initialization failed: Message: session not created: probably user data directory is already in use, please specify a unique value for --user-data-dir argument, or don't use --user-data-dir; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#sessionnotcreatedexception
+Stacktrace:
+0   chromedriver                        0x000000010e3e9108 chromedriver + 6119688
+1   chromedriver                        0x000000010e3e080a chromedriver + 6084618
+2   chromedriver                        0x000000010de7c1a6 chromedriver + 430502
+3   chromedriver                        0x000000010deb7a7a chromedriver + 674426
+4   chromedriver                        0x000000010deb3496 chromedriver + 656534
+5   chromedriver                        0x000000010df03358 chromedriver + 983896
+6   chromedriver                        0x000000010df029d6 chromedriver + 981462
+7   chromedriver                        0x000000010def4bd3 chromedriver + 924627
+8   chromedriver                        0x000000010dec0c0b chromedriver + 711691
+9   chromedriver                        0x000000010dec18d1 chromedriver + 714961
+10  chromedriver                        0x000000010e3a65d0 chromedriver + 5846480
+11  chromedriver                        0x000000010e3aa865 chromedriver + 5863525
+12  chromedriver                        0x000000010e381da7 chromedriver + 5696935
+13  chromedriver                        0x000000010e3ab2ff chromedriver + 5866239
+14  chromedriver                        0x000000010e371204 chromedriver + 5628420
+15  chromedriver                        0x000000010e3cd828 chromedriver + 6006824
+16  chromedriver                        0x000000010e3cd9ed chromedriver + 6007277
+17  chromedriver                        0x000000010e3e03e1 chromedriver + 6083553
+18  libsystem_pthread.dylib             0x00007ff8130bc1d3 _pthread_start + 125
+19  libsystem_pthread.dylib             0x00007ff8130b7bd3 thread_start + 15
+
+2025-10-30 22:59:02,785 - INFO - [navigate_to] - Navigating to: https://web.whatsapp.com/send?phone=256706272481&text=Good%20morning
+2025-10-30 22:59:02,785 - ERROR - [navigate_to] - Navigation failed: 'NoneType' object has no attribute 'set_page_load_timeout'
+2025-10-30 22:59:02,786 - INFO - [send_whatsapp_message] - Waiting 30 seconds for WhatsApp Web to load...
+2025-10-30 22:59:32,788 - INFO - [send_whatsapp_message] - Checking for WhatsApp Web login verification...
+2025-10-30 22:59:32,790 - INFO - [find_element] - Finding element: xpath=//span[@data-icon="send"] (timeout: 10s)
+2025-10-30 22:59:32,791 - ERROR - [find_element] - Element not found: //span[@data-icon="send"] - 'NoneType' object has no attribute 'find_element'
+2025-10-30 22:59:32,791 - WARNING - [send_whatsapp_message] - Send button not found, trying fallback method...
+2025-10-30 22:59:35,393 - INFO - [send_whatsapp_message] - WhatsApp message sent (fallback) to 256706272481
+2025-10-30 22:59:35,395 - INFO - [cleanup] - Starting cleanup...
+2025-10-30 22:59:35,395 - INFO - [cleanup] - ============================================================
+2025-10-30 22:59:35,395 - INFO - [cleanup] - Agent cleanup complete
+2025-10-30 22:59:35,395 - INFO - [cleanup] - ============================================================
+2025-10-30 23:10:37,941 - INFO - [__init__] - ============================================================
+2025-10-30 23:10:37,941 - INFO - [__init__] - Unified Automation Agent Initialized
+2025-10-30 23:10:37,941 - INFO - [__init__] - System: Darwin
+2025-10-30 23:10:37,941 - INFO - [__init__] - Timestamp: 2025-10-30T23:10:37.941622
+2025-10-30 23:10:37,941 - INFO - [__init__] - ============================================================
+2025-10-30 23:10:37,941 - INFO - [send_whatsapp_message] - Preparing to send WhatsApp message to: 256706272481
+2025-10-30 23:10:37,942 - INFO - [init_browser] - Initializing browser...
+2025-10-30 23:10:37,942 - INFO - [init_browser] - Using Chrome profile directory: /Users/esthermboa/.soko24_automation/chrome-profile
+2025-10-30 23:10:37,942 - INFO - [log] - ====== WebDriver manager ======
+2025-10-30 23:10:38,260 - INFO - [log] - Get LATEST chromedriver version for google-chrome
+2025-10-30 23:10:38,715 - INFO - [log] - Get LATEST chromedriver version for google-chrome
+2025-10-30 23:10:39,043 - INFO - [log] - Driver [/Users/esthermboa/.wdm/drivers/chromedriver/mac64/141.0.7390.122/chromedriver-mac-x64/chromedriver] found in cache
+2025-10-30 23:10:41,435 - INFO - [init_browser] - ChromeDriver initialized with webdriver-manager
+2025-10-30 23:10:41,445 - INFO - [init_browser] - Browser initialized successfully
+2025-10-30 23:10:41,449 - INFO - [send_whatsapp_message] - Navigating to WhatsApp Web: https://web.whatsapp.com/send?phone=256706272481&text=Good%20morning
+2025-10-30 23:10:41,449 - INFO - [navigate_to] - Navigating to: https://web.whatsapp.com/send?phone=256706272481&text=Good%20morning
+2025-10-30 23:10:43,530 - INFO - [navigate_to] - Successfully navigated to: https://web.whatsapp.com/send?phone=256706272481&text=Good%20morning
+2025-10-30 23:10:45,548 - INFO - [send_whatsapp_message] - Waiting 30 seconds for WhatsApp Web to load...
+2025-10-30 23:11:15,548 - INFO - [send_whatsapp_message] - Checking for WhatsApp Web login verification...
+2025-10-30 23:11:15,549 - INFO - [find_element] - Finding element: xpath=//span[@data-icon="send"] (timeout: 10s)
+2025-10-30 23:11:25,989 - ERROR - [find_element] - Element not found: //span[@data-icon="send"] - Message: 
+Stacktrace:
+0   chromedriver                        0x000000010de43108 chromedriver + 6119688
+1   chromedriver                        0x000000010de3a80a chromedriver + 6084618
+2   chromedriver                        0x000000010d8d61a6 chromedriver + 430502
+3   chromedriver                        0x000000010d9288a1 chromedriver + 768161
+4   chromedriver                        0x000000010d928b61 chromedriver + 768865
+5   chromedriver                        0x000000010d979034 chromedriver + 1097780
+6   chromedriver                        0x000000010d94ee2d chromedriver + 925229
+7   chromedriver                        0x000000010d976378 chromedriver + 1086328
+8   chromedriver                        0x000000010d94ebd3 chromedriver + 924627
+9   chromedriver                        0x000000010d91ac0b chromedriver + 711691
+10  chromedriver                        0x000000010d91b8d1 chromedriver + 714961
+11  chromedriver                        0x000000010de005d0 chromedriver + 5846480
+12  chromedriver                        0x000000010de04865 chromedriver + 5863525
+13  chromedriver                        0x000000010dddbda7 chromedriver + 5696935
+14  chromedriver                        0x000000010de052ff chromedriver + 5866239
+15  chromedriver                        0x000000010ddcb204 chromedriver + 5628420
+16  chromedriver                        0x000000010de27828 chromedriver + 6006824
+17  chromedriver                        0x000000010de279ed chromedriver + 6007277
+18  chromedriver                        0x000000010de3a3e1 chromedriver + 6083553
+19  libsystem_pthread.dylib             0x00007ff8130bc1d3 _pthread_start + 125
+20  libsystem_pthread.dylib             0x00007ff8130b7bd3 thread_start + 15
+
+2025-10-30 23:11:25,990 - WARNING - [send_whatsapp_message] - Send button not found, trying fallback method...
+2025-10-30 23:11:28,608 - INFO - [send_whatsapp_message] - WhatsApp message sent (fallback) to 256706272481
+2025-10-30 23:11:28,608 - INFO - [cleanup] - Starting cleanup...
+2025-10-30 23:11:29,143 - INFO - [cleanup] - Browser closed
+2025-10-30 23:11:29,143 - INFO - [cleanup] - ============================================================
+2025-10-30 23:11:29,143 - INFO - [cleanup] - Agent cleanup complete
+2025-10-30 23:11:29,143 - INFO - [cleanup] - ============================================================
+2025-10-30 23:11:37,494 - INFO - [__init__] - ============================================================
+2025-10-30 23:11:37,494 - INFO - [__init__] - Unified Automation Agent Initialized
+2025-10-30 23:11:37,494 - INFO - [__init__] - System: Darwin
+2025-10-30 23:11:37,494 - INFO - [__init__] - Timestamp: 2025-10-30T23:11:37.494475
+2025-10-30 23:11:37,494 - INFO - [__init__] - ============================================================
+2025-10-30 23:11:37,494 - INFO - [send_whatsapp_message] - Preparing to send WhatsApp message to: 256706272481
+2025-10-30 23:11:37,494 - INFO - [init_browser] - Initializing browser...
+2025-10-30 23:11:37,495 - INFO - [init_browser] - Using Chrome profile directory: /Users/esthermboa/.soko24_automation/chrome-profile
+2025-10-30 23:11:37,495 - INFO - [log] - ====== WebDriver manager ======
+2025-10-30 23:11:37,781 - INFO - [log] - Get LATEST chromedriver version for google-chrome
+2025-10-30 23:11:38,516 - INFO - [log] - Get LATEST chromedriver version for google-chrome
+2025-10-30 23:11:38,810 - INFO - [log] - Driver [/Users/esthermboa/.wdm/drivers/chromedriver/mac64/141.0.7390.122/chromedriver-mac-x64/chromedriver] found in cache
+2025-10-30 23:11:40,451 - INFO - [init_browser] - ChromeDriver initialized with webdriver-manager
+2025-10-30 23:11:40,610 - INFO - [init_browser] - Browser initialized successfully
+2025-10-30 23:11:40,611 - INFO - [send_whatsapp_message] - Navigating to WhatsApp Web: https://web.whatsapp.com/send?phone=256706272481&text=Good%20morning
+2025-10-30 23:11:40,611 - INFO - [navigate_to] - Navigating to: https://web.whatsapp.com/send?phone=256706272481&text=Good%20morning
+2025-10-30 23:11:43,003 - INFO - [navigate_to] - Successfully navigated to: https://web.whatsapp.com/send?phone=256706272481&text=Good%20morning
+2025-10-30 23:11:45,008 - INFO - [send_whatsapp_message] - Waiting 30 seconds for WhatsApp Web to load...
+2025-10-30 23:12:15,010 - INFO - [send_whatsapp_message] - Checking for WhatsApp Web login verification...
+2025-10-30 23:12:15,010 - INFO - [find_element] - Finding element: xpath=//span[@data-icon="send"] (timeout: 10s)
+2025-10-30 23:12:25,297 - ERROR - [find_element] - Element not found: //span[@data-icon="send"] - Message: 
+Stacktrace:
+0   chromedriver                        0x0000000108290108 chromedriver + 6119688
+1   chromedriver                        0x000000010828780a chromedriver + 6084618
+2   chromedriver                        0x0000000107d231a6 chromedriver + 430502
+3   chromedriver                        0x0000000107d758a1 chromedriver + 768161
+4   chromedriver                        0x0000000107d75b61 chromedriver + 768865
+5   chromedriver                        0x0000000107dc6034 chromedriver + 1097780
+6   chromedriver                        0x0000000107d9be2d chromedriver + 925229
+7   chromedriver                        0x0000000107dc3378 chromedriver + 1086328
+8   chromedriver                        0x0000000107d9bbd3 chromedriver + 924627
+9   chromedriver                        0x0000000107d67c0b chromedriver + 711691
+10  chromedriver                        0x0000000107d688d1 chromedriver + 714961
+11  chromedriver                        0x000000010824d5d0 chromedriver + 5846480
+12  chromedriver                        0x0000000108251865 chromedriver + 5863525
+13  chromedriver                        0x0000000108228da7 chromedriver + 5696935
+14  chromedriver                        0x00000001082522ff chromedriver + 5866239
+15  chromedriver                        0x0000000108218204 chromedriver + 5628420
+16  chromedriver                        0x0000000108274828 chromedriver + 6006824
+17  chromedriver                        0x00000001082749ed chromedriver + 6007277
+18  chromedriver                        0x00000001082873e1 chromedriver + 6083553
+19  libsystem_pthread.dylib             0x00007ff8130bc1d3 _pthread_start + 125
+20  libsystem_pthread.dylib             0x00007ff8130b7bd3 thread_start + 15
+
+2025-10-30 23:12:25,299 - WARNING - [send_whatsapp_message] - Send button not found, trying fallback method...
+2025-10-30 23:12:27,882 - INFO - [send_whatsapp_message] - WhatsApp message sent (fallback) to 256706272481
+2025-10-30 23:12:27,882 - INFO - [cleanup] - Starting cleanup...
+2025-10-30 23:12:28,281 - INFO - [cleanup] - Browser closed
+2025-10-30 23:12:28,281 - INFO - [cleanup] - ============================================================
+2025-10-30 23:12:28,281 - INFO - [cleanup] - Agent cleanup complete
+2025-10-30 23:12:28,281 - INFO - [cleanup] - ============================================================
+2025-10-30 23:13:17,757 - INFO - [__init__] - ============================================================
+2025-10-30 23:13:17,757 - INFO - [__init__] - Unified Automation Agent Initialized
+2025-10-30 23:13:17,757 - INFO - [__init__] - System: Darwin
+2025-10-30 23:13:17,758 - INFO - [__init__] - Timestamp: 2025-10-30T23:13:17.757993
+2025-10-30 23:13:17,758 - INFO - [__init__] - ============================================================
+2025-10-30 23:13:17,758 - INFO - [send_whatsapp_message] - Preparing to send WhatsApp message to: 256706272481
+2025-10-30 23:13:17,758 - INFO - [init_browser] - Initializing browser...
+2025-10-30 23:13:17,758 - INFO - [init_browser] - Using Chrome profile directory: /Users/esthermboa/.soko24_automation/chrome-profile
+2025-10-30 23:13:17,759 - INFO - [log] - ====== WebDriver manager ======
+2025-10-30 23:13:18,057 - INFO - [log] - Get LATEST chromedriver version for google-chrome
+2025-10-30 23:13:18,393 - INFO - [log] - Get LATEST chromedriver version for google-chrome
+2025-10-30 23:13:18,851 - INFO - [log] - Driver [/Users/esthermboa/.wdm/drivers/chromedriver/mac64/141.0.7390.122/chromedriver-mac-x64/chromedriver] found in cache
+2025-10-30 23:13:20,684 - INFO - [init_browser] - ChromeDriver initialized with webdriver-manager
+2025-10-30 23:13:20,903 - INFO - [init_browser] - Browser initialized successfully
+2025-10-30 23:13:20,904 - INFO - [send_whatsapp_message] - Navigating to WhatsApp Web: https://web.whatsapp.com/send?phone=256706272481&text=Good%20morning
+2025-10-30 23:13:20,904 - INFO - [navigate_to] - Navigating to: https://web.whatsapp.com/send?phone=256706272481&text=Good%20morning
+2025-10-30 23:13:23,219 - INFO - [navigate_to] - Successfully navigated to: https://web.whatsapp.com/send?phone=256706272481&text=Good%20morning
+2025-10-30 23:13:25,222 - INFO - [send_whatsapp_message] - Waiting 30 seconds for WhatsApp Web to load...
+2025-10-30 23:13:55,223 - INFO - [send_whatsapp_message] - Checking for WhatsApp Web login verification...
+2025-10-30 23:13:55,223 - INFO - [find_element] - Finding element: xpath=//span[@data-icon="send"] (timeout: 10s)
+2025-10-30 23:14:05,616 - ERROR - [find_element] - Element not found: //span[@data-icon="send"] - Message: 
+Stacktrace:
+0   chromedriver                        0x0000000106b47108 chromedriver + 6119688
+1   chromedriver                        0x0000000106b3e80a chromedriver + 6084618
+2   chromedriver                        0x00000001065da1a6 chromedriver + 430502
+3   chromedriver                        0x000000010662c8a1 chromedriver + 768161
+4   chromedriver                        0x000000010662cb61 chromedriver + 768865
+5   chromedriver                        0x000000010667d034 chromedriver + 1097780
+6   chromedriver                        0x0000000106652e2d chromedriver + 925229
+7   chromedriver                        0x000000010667a378 chromedriver + 1086328
+8   chromedriver                        0x0000000106652bd3 chromedriver + 924627
+9   chromedriver                        0x000000010661ec0b chromedriver + 711691
+10  chromedriver                        0x000000010661f8d1 chromedriver + 714961
+11  chromedriver                        0x0000000106b045d0 chromedriver + 5846480
+12  chromedriver                        0x0000000106b08865 chromedriver + 5863525
+13  chromedriver                        0x0000000106adfda7 chromedriver + 5696935
+14  chromedriver                        0x0000000106b092ff chromedriver + 5866239
+15  chromedriver                        0x0000000106acf204 chromedriver + 5628420
+16  chromedriver                        0x0000000106b2b828 chromedriver + 6006824
+17  chromedriver                        0x0000000106b2b9ed chromedriver + 6007277
+18  chromedriver                        0x0000000106b3e3e1 chromedriver + 6083553
+19  libsystem_pthread.dylib             0x00007ff8130bc1d3 _pthread_start + 125
+20  libsystem_pthread.dylib             0x00007ff8130b7bd3 thread_start + 15
+
+2025-10-30 23:14:05,616 - WARNING - [send_whatsapp_message] - Send button not found, trying fallback method...
+2025-10-30 23:14:08,200 - INFO - [send_whatsapp_message] - WhatsApp message sent (fallback) to 256706272481
+2025-10-30 23:14:08,201 - INFO - [cleanup] - Starting cleanup...
+2025-10-30 23:14:08,441 - INFO - [cleanup] - Browser closed
+2025-10-30 23:14:08,441 - INFO - [cleanup] - ============================================================
+2025-10-30 23:14:08,442 - INFO - [cleanup] - Agent cleanup complete
+2025-10-30 23:14:08,442 - INFO - [cleanup] - ============================================================
+2025-10-30 23:18:45,988 - INFO - [__init__] - ============================================================
+2025-10-30 23:18:45,988 - INFO - [__init__] - Unified Automation Agent Initialized
+2025-10-30 23:18:45,988 - INFO - [__init__] - System: Darwin
+2025-10-30 23:18:45,988 - INFO - [__init__] - Timestamp: 2025-10-30T23:18:45.988870
+2025-10-30 23:18:45,988 - INFO - [__init__] - ============================================================
+2025-10-30 23:18:45,989 - INFO - [send_whatsapp_message] - Preparing to send WhatsApp message to: 256706272481
+2025-10-30 23:18:45,989 - INFO - [init_browser] - Initializing browser...
+2025-10-30 23:18:45,989 - INFO - [init_browser] - Using Chrome profile directory: /Users/esthermboa/.soko24_automation/chrome-profile
+2025-10-30 23:18:45,989 - INFO - [log] - ====== WebDriver manager ======
+2025-10-30 23:18:46,282 - INFO - [log] - Get LATEST chromedriver version for google-chrome
+2025-10-30 23:18:46,819 - INFO - [log] - Get LATEST chromedriver version for google-chrome
+2025-10-30 23:18:47,107 - INFO - [log] - Driver [/Users/esthermboa/.wdm/drivers/chromedriver/mac64/141.0.7390.122/chromedriver-mac-x64/chromedriver] found in cache
+2025-10-30 23:18:48,900 - INFO - [init_browser] - ChromeDriver initialized with webdriver-manager
+2025-10-30 23:18:49,106 - INFO - [init_browser] - Browser initialized successfully
+2025-10-30 23:18:49,112 - INFO - [send_whatsapp_message] - Navigating to WhatsApp Web: https://web.whatsapp.com/send?phone=256706272481&text=Good%20morning
+2025-10-30 23:18:49,112 - INFO - [navigate_to] - Navigating to: https://web.whatsapp.com/send?phone=256706272481&text=Good%20morning
+2025-10-30 23:18:51,215 - INFO - [navigate_to] - Successfully navigated to: https://web.whatsapp.com/send?phone=256706272481&text=Good%20morning
+2025-10-30 23:18:53,217 - INFO - [send_whatsapp_message] - Waiting 30 seconds for WhatsApp Web to load...
+2025-10-30 23:19:23,220 - INFO - [send_whatsapp_message] - Checking for WhatsApp Web login verification...
+2025-10-30 23:19:23,220 - INFO - [find_element] - Finding element: xpath=//span[@data-icon="send"] (timeout: 10s)
+2025-10-30 23:19:33,312 - ERROR - [find_element] - Element not found: //span[@data-icon="send"] - Message: 
+Stacktrace:
+0   chromedriver                        0x000000010ca6c108 chromedriver + 6119688
+1   chromedriver                        0x000000010ca6380a chromedriver + 6084618
+2   chromedriver                        0x000000010c4ff1a6 chromedriver + 430502
+3   chromedriver                        0x000000010c5518a1 chromedriver + 768161
+4   chromedriver                        0x000000010c551b61 chromedriver + 768865
+5   chromedriver                        0x000000010c5a2034 chromedriver + 1097780
+6   chromedriver                        0x000000010c577e2d chromedriver + 925229
+7   chromedriver                        0x000000010c59f378 chromedriver + 1086328
+8   chromedriver                        0x000000010c577bd3 chromedriver + 924627
+9   chromedriver                        0x000000010c543c0b chromedriver + 711691
+10  chromedriver                        0x000000010c5448d1 chromedriver + 714961
+11  chromedriver                        0x000000010ca295d0 chromedriver + 5846480
+12  chromedriver                        0x000000010ca2d865 chromedriver + 5863525
+13  chromedriver                        0x000000010ca04da7 chromedriver + 5696935
+14  chromedriver                        0x000000010ca2e2ff chromedriver + 5866239
+15  chromedriver                        0x000000010c9f4204 chromedriver + 5628420
+16  chromedriver                        0x000000010ca50828 chromedriver + 6006824
+17  chromedriver                        0x000000010ca509ed chromedriver + 6007277
+18  chromedriver                        0x000000010ca633e1 chromedriver + 6083553
+19  libsystem_pthread.dylib             0x00007ff8130bc1d3 _pthread_start + 125
+20  libsystem_pthread.dylib             0x00007ff8130b7bd3 thread_start + 15
+
+2025-10-30 23:19:33,312 - INFO - [send_whatsapp_message] - Send button not found, attempting Enter key fallback
+2025-10-30 23:19:35,900 - INFO - [find_element] - Finding element: css selector=span[dir='ltr'][data-testid='msg-text'] (timeout: 5s)
+2025-10-30 23:19:41,621 - ERROR - [find_element] - Element not found: span[dir='ltr'][data-testid='msg-text'] - Message: 
+Stacktrace:
+0   chromedriver                        0x000000010ca6c108 chromedriver + 6119688
+1   chromedriver                        0x000000010ca6380a chromedriver + 6084618
+2   chromedriver                        0x000000010c4ff1a6 chromedriver + 430502
+3   chromedriver                        0x000000010c5518a1 chromedriver + 768161
+4   chromedriver                        0x000000010c551b61 chromedriver + 768865
+5   chromedriver                        0x000000010c5a2034 chromedriver + 1097780
+6   chromedriver                        0x000000010c577e2d chromedriver + 925229
+7   chromedriver                        0x000000010c59f378 chromedriver + 1086328
+8   chromedriver                        0x000000010c577bd3 chromedriver + 924627
+9   chromedriver                        0x000000010c543c0b chromedriver + 711691
+10  chromedriver                        0x000000010c5448d1 chromedriver + 714961
+11  chromedriver                        0x000000010ca295d0 chromedriver + 5846480
+12  chromedriver                        0x000000010ca2d865 chromedriver + 5863525
+13  chromedriver                        0x000000010ca04da7 chromedriver + 5696935
+14  chromedriver                        0x000000010ca2e2ff chromedriver + 5866239
+15  chromedriver                        0x000000010c9f4204 chromedriver + 5628420
+16  chromedriver                        0x000000010ca50828 chromedriver + 6006824
+17  chromedriver                        0x000000010ca509ed chromedriver + 6007277
+18  chromedriver                        0x000000010ca633e1 chromedriver + 6083553
+19  libsystem_pthread.dylib             0x00007ff8130bc1d3 _pthread_start + 125
+20  libsystem_pthread.dylib             0x00007ff8130b7bd3 thread_start + 15
+
+2025-10-30 23:19:41,621 - WARNING - [send_whatsapp_message] - Unable to confirm message in chat history
+2025-10-30 23:19:41,621 - INFO - [cleanup] - Starting cleanup...
+2025-10-30 23:19:41,622 - INFO - [cleanup] - ============================================================
+2025-10-30 23:19:41,622 - INFO - [cleanup] - Agent cleanup complete
+2025-10-30 23:19:41,622 - INFO - [cleanup] - ============================================================
+2025-10-30 23:20:35,355 - INFO - [__init__] - ============================================================
+2025-10-30 23:20:35,356 - INFO - [__init__] - Unified Automation Agent Initialized
+2025-10-30 23:20:35,356 - INFO - [__init__] - System: Darwin
+2025-10-30 23:20:35,356 - INFO - [__init__] - Timestamp: 2025-10-30T23:20:35.356534
+2025-10-30 23:20:35,356 - INFO - [__init__] - ============================================================
+2025-10-30 23:20:35,356 - INFO - [send_whatsapp_message] - Preparing to send WhatsApp message to: 256706272481
+2025-10-30 23:20:35,356 - INFO - [init_browser] - Initializing browser...
+2025-10-30 23:20:35,357 - INFO - [init_browser] - Using Chrome profile directory: /Users/esthermboa/.soko24_automation/chrome-profile
+2025-10-30 23:20:35,357 - INFO - [log] - ====== WebDriver manager ======
+2025-10-30 23:20:35,646 - INFO - [log] - Get LATEST chromedriver version for google-chrome
+2025-10-30 23:20:36,087 - INFO - [log] - Get LATEST chromedriver version for google-chrome
+2025-10-30 23:20:36,506 - INFO - [log] - Driver [/Users/esthermboa/.wdm/drivers/chromedriver/mac64/141.0.7390.122/chromedriver-mac-x64/chromedriver] found in cache
+2025-10-30 23:20:38,337 - INFO - [init_browser] - ChromeDriver initialized with webdriver-manager
+2025-10-30 23:20:38,507 - INFO - [init_browser] - Browser initialized successfully
+2025-10-30 23:20:38,508 - INFO - [send_whatsapp_message] - Navigating to WhatsApp Web: https://web.whatsapp.com/send?phone=256706272481&text=Good%20morning
+2025-10-30 23:20:38,508 - INFO - [navigate_to] - Navigating to: https://web.whatsapp.com/send?phone=256706272481&text=Good%20morning
+2025-10-30 23:20:40,894 - INFO - [navigate_to] - Successfully navigated to: https://web.whatsapp.com/send?phone=256706272481&text=Good%20morning
+2025-10-30 23:20:42,900 - INFO - [send_whatsapp_message] - Waiting 30 seconds for WhatsApp Web to load...
+2025-10-30 23:21:12,903 - INFO - [send_whatsapp_message] - Checking for WhatsApp Web login verification...
+2025-10-30 23:21:12,903 - INFO - [find_element] - Finding element: xpath=//span[@data-icon="send"] (timeout: 10s)
+2025-10-30 23:21:23,126 - ERROR - [find_element] - Element not found: //span[@data-icon="send"] - Message: 
+Stacktrace:
+0   chromedriver                        0x000000010f5c8108 chromedriver + 6119688
+1   chromedriver                        0x000000010f5bf80a chromedriver + 6084618
+2   chromedriver                        0x000000010f05b1a6 chromedriver + 430502
+3   chromedriver                        0x000000010f0ad8a1 chromedriver + 768161
+4   chromedriver                        0x000000010f0adb61 chromedriver + 768865
+5   chromedriver                        0x000000010f0fe034 chromedriver + 1097780
+6   chromedriver                        0x000000010f0d3e2d chromedriver + 925229
+7   chromedriver                        0x000000010f0fb378 chromedriver + 1086328
+8   chromedriver                        0x000000010f0d3bd3 chromedriver + 924627
+9   chromedriver                        0x000000010f09fc0b chromedriver + 711691
+10  chromedriver                        0x000000010f0a08d1 chromedriver + 714961
+11  chromedriver                        0x000000010f5855d0 chromedriver + 5846480
+12  chromedriver                        0x000000010f589865 chromedriver + 5863525
+13  chromedriver                        0x000000010f560da7 chromedriver + 5696935
+14  chromedriver                        0x000000010f58a2ff chromedriver + 5866239
+15  chromedriver                        0x000000010f550204 chromedriver + 5628420
+16  chromedriver                        0x000000010f5ac828 chromedriver + 6006824
+17  chromedriver                        0x000000010f5ac9ed chromedriver + 6007277
+18  chromedriver                        0x000000010f5bf3e1 chromedriver + 6083553
+19  libsystem_pthread.dylib             0x00007ff8130bc1d3 _pthread_start + 125
+20  libsystem_pthread.dylib             0x00007ff8130b7bd3 thread_start + 15
+
+2025-10-30 23:21:23,127 - INFO - [send_whatsapp_message] - Send button not found, attempting Enter key fallback
+2025-10-30 23:21:25,724 - INFO - [find_element] - Finding element: css selector=span[dir='ltr'][data-testid='msg-text'] (timeout: 5s)
+2025-10-30 23:21:30,824 - ERROR - [find_element] - Element not found: span[dir='ltr'][data-testid='msg-text'] - Message: 
+Stacktrace:
+0   chromedriver                        0x000000010f5c8108 chromedriver + 6119688
+1   chromedriver                        0x000000010f5bf80a chromedriver + 6084618
+2   chromedriver                        0x000000010f05b1a6 chromedriver + 430502
+3   chromedriver                        0x000000010f0ad8a1 chromedriver + 768161
+4   chromedriver                        0x000000010f0adb61 chromedriver + 768865
+5   chromedriver                        0x000000010f0fe034 chromedriver + 1097780
+6   chromedriver                        0x000000010f0d3e2d chromedriver + 925229
+7   chromedriver                        0x000000010f0fb378 chromedriver + 1086328
+8   chromedriver                        0x000000010f0d3bd3 chromedriver + 924627
+9   chromedriver                        0x000000010f09fc0b chromedriver + 711691
+10  chromedriver                        0x000000010f0a08d1 chromedriver + 714961
+11  chromedriver                        0x000000010f5855d0 chromedriver + 5846480
+12  chromedriver                        0x000000010f589865 chromedriver + 5863525
+13  chromedriver                        0x000000010f560da7 chromedriver + 5696935
+14  chromedriver                        0x000000010f58a2ff chromedriver + 5866239
+15  chromedriver                        0x000000010f550204 chromedriver + 5628420
+16  chromedriver                        0x000000010f5ac828 chromedriver + 6006824
+17  chromedriver                        0x000000010f5ac9ed chromedriver + 6007277
+18  chromedriver                        0x000000010f5bf3e1 chromedriver + 6083553
+19  libsystem_pthread.dylib             0x00007ff8130bc1d3 _pthread_start + 125
+20  libsystem_pthread.dylib             0x00007ff8130b7bd3 thread_start + 15
+
+2025-10-30 23:21:30,825 - WARNING - [send_whatsapp_message] - Unable to confirm message in chat history
+2025-10-30 23:21:30,825 - INFO - [cleanup] - Starting cleanup...
+2025-10-30 23:21:30,825 - INFO - [cleanup] - ============================================================
+2025-10-30 23:21:30,825 - INFO - [cleanup] - Agent cleanup complete
+2025-10-30 23:21:30,825 - INFO - [cleanup] - ============================================================
+2025-10-30 23:22:51,989 - INFO - [__init__] - ============================================================
+2025-10-30 23:22:51,989 - INFO - [__init__] - Unified Automation Agent Initialized
+2025-10-30 23:22:51,989 - INFO - [__init__] - System: Darwin
+2025-10-30 23:22:51,989 - INFO - [__init__] - Timestamp: 2025-10-30T23:22:51.989697
+2025-10-30 23:22:51,989 - INFO - [__init__] - ============================================================
+2025-10-30 23:22:51,989 - INFO - [send_whatsapp_message] - Preparing to send WhatsApp message to: 256706272481
+2025-10-30 23:22:51,990 - INFO - [init_browser] - Initializing browser...
+2025-10-30 23:22:51,990 - INFO - [init_browser] - Using Chrome profile directory: /Users/esthermboa/.soko24_automation/chrome-profile
+2025-10-30 23:22:51,990 - INFO - [log] - ====== WebDriver manager ======
+2025-10-30 23:22:52,292 - INFO - [log] - Get LATEST chromedriver version for google-chrome
+2025-10-30 23:22:52,825 - INFO - [log] - Get LATEST chromedriver version for google-chrome
+2025-10-30 23:22:53,235 - INFO - [log] - Driver [/Users/esthermboa/.wdm/drivers/chromedriver/mac64/141.0.7390.122/chromedriver-mac-x64/chromedriver] found in cache
+2025-10-30 23:22:55,199 - INFO - [init_browser] - ChromeDriver initialized with webdriver-manager
+2025-10-30 23:22:55,220 - INFO - [init_browser] - Browser initialized successfully
+2025-10-30 23:22:55,222 - INFO - [send_whatsapp_message] - Navigating to WhatsApp Web: https://web.whatsapp.com/send?phone=256706272481&text=Good%20morning
+2025-10-30 23:22:55,223 - INFO - [navigate_to] - Navigating to: https://web.whatsapp.com/send?phone=256706272481&text=Good%20morning
+2025-10-30 23:22:57,113 - INFO - [navigate_to] - Successfully navigated to: https://web.whatsapp.com/send?phone=256706272481&text=Good%20morning
+2025-10-30 23:22:59,115 - INFO - [send_whatsapp_message] - Waiting 30 seconds for WhatsApp Web to load...
+2025-10-30 23:23:29,115 - INFO - [send_whatsapp_message] - Checking for WhatsApp Web login verification...
+2025-10-30 23:23:29,116 - INFO - [find_element] - Finding element: xpath=//span[@data-icon="send"] (timeout: 10s)
+2025-10-30 23:23:39,523 - ERROR - [find_element] - Element not found: //span[@data-icon="send"] - Message: 
+Stacktrace:
+0   chromedriver                        0x000000010c792108 chromedriver + 6119688
+1   chromedriver                        0x000000010c78980a chromedriver + 6084618
+2   chromedriver                        0x000000010c2251a6 chromedriver + 430502
+3   chromedriver                        0x000000010c2778a1 chromedriver + 768161
+4   chromedriver                        0x000000010c277b61 chromedriver + 768865
+5   chromedriver                        0x000000010c2c8034 chromedriver + 1097780
+6   chromedriver                        0x000000010c29de2d chromedriver + 925229
+7   chromedriver                        0x000000010c2c5378 chromedriver + 1086328
+8   chromedriver                        0x000000010c29dbd3 chromedriver + 924627
+9   chromedriver                        0x000000010c269c0b chromedriver + 711691
+10  chromedriver                        0x000000010c26a8d1 chromedriver + 714961
+11  chromedriver                        0x000000010c74f5d0 chromedriver + 5846480
+12  chromedriver                        0x000000010c753865 chromedriver + 5863525
+13  chromedriver                        0x000000010c72ada7 chromedriver + 5696935
+14  chromedriver                        0x000000010c7542ff chromedriver + 5866239
+15  chromedriver                        0x000000010c71a204 chromedriver + 5628420
+16  chromedriver                        0x000000010c776828 chromedriver + 6006824
+17  chromedriver                        0x000000010c7769ed chromedriver + 6007277
+18  chromedriver                        0x000000010c7893e1 chromedriver + 6083553
+19  libsystem_pthread.dylib             0x00007ff8130bc1d3 _pthread_start + 125
+20  libsystem_pthread.dylib             0x00007ff8130b7bd3 thread_start + 15
+
+2025-10-30 23:23:39,524 - INFO - [send_whatsapp_message] - Send button not found, attempting Enter key fallback
+2025-10-30 23:23:42,111 - INFO - [find_element] - Finding element: css selector=span[dir='ltr'][data-testid='msg-text'] (timeout: 5s)
+2025-10-30 23:23:42,113 - ERROR - [find_element] - Element not found: span[dir='ltr'][data-testid='msg-text'] - Message: no such window: target window already closed
+from unknown error: web view not found
+  (Session info: chrome=141.0.7390.123)
+Stacktrace:
+0   chromedriver                        0x000000010c792108 chromedriver + 6119688
+1   chromedriver                        0x000000010c78980a chromedriver + 6084618
+2   chromedriver                        0x000000010c2251a6 chromedriver + 430502
+3   chromedriver                        0x000000010c1f9b30 chromedriver + 252720
+4   chromedriver                        0x000000010c2a6088 chromedriver + 958600
+5   chromedriver                        0x000000010c2c4d6c chromedriver + 1084780
+6   chromedriver                        0x000000010c29dbd3 chromedriver + 924627
+7   chromedriver                        0x000000010c269c0b chromedriver + 711691
+8   chromedriver                        0x000000010c26a8d1 chromedriver + 714961
+9   chromedriver                        0x000000010c74f5d0 chromedriver + 5846480
+10  chromedriver                        0x000000010c753865 chromedriver + 5863525
+11  chromedriver                        0x000000010c72ada7 chromedriver + 5696935
+12  chromedriver                        0x000000010c7542ff chromedriver + 5866239
+13  chromedriver                        0x000000010c71a204 chromedriver + 5628420
+14  chromedriver                        0x000000010c776828 chromedriver + 6006824
+15  chromedriver                        0x000000010c7769ed chromedriver + 6007277
+16  chromedriver                        0x000000010c7893e1 chromedriver + 6083553
+17  libsystem_pthread.dylib             0x00007ff8130bc1d3 _pthread_start + 125
+18  libsystem_pthread.dylib             0x00007ff8130b7bd3 thread_start + 15
+
+2025-10-30 23:23:42,114 - WARNING - [send_whatsapp_message] - Unable to confirm message in chat history
+2025-10-30 23:23:42,114 - INFO - [cleanup] - Starting cleanup...
+2025-10-30 23:23:42,114 - INFO - [cleanup] - ============================================================
+2025-10-30 23:23:42,115 - INFO - [cleanup] - Agent cleanup complete
+2025-10-30 23:23:42,115 - INFO - [cleanup] - ============================================================
+2025-10-30 23:24:02,392 - INFO - [__init__] - ============================================================
+2025-10-30 23:24:02,392 - INFO - [__init__] - Unified Automation Agent Initialized
+2025-10-30 23:24:02,392 - INFO - [__init__] - System: Darwin
+2025-10-30 23:24:02,393 - INFO - [__init__] - Timestamp: 2025-10-30T23:24:02.393112
+2025-10-30 23:24:02,393 - INFO - [__init__] - ============================================================
+2025-10-30 23:24:02,393 - INFO - [send_whatsapp_message] - Preparing to send WhatsApp message to: 256706272481
+2025-10-30 23:24:02,393 - INFO - [init_browser] - Initializing browser...
+2025-10-30 23:24:02,393 - INFO - [init_browser] - Using Chrome profile directory: /Users/esthermboa/.soko24_automation/chrome-profile
+2025-10-30 23:24:02,394 - INFO - [log] - ====== WebDriver manager ======
+2025-10-30 23:24:02,685 - INFO - [log] - Get LATEST chromedriver version for google-chrome
+2025-10-30 23:24:03,064 - INFO - [log] - Get LATEST chromedriver version for google-chrome
+2025-10-30 23:24:03,490 - INFO - [log] - Driver [/Users/esthermboa/.wdm/drivers/chromedriver/mac64/141.0.7390.122/chromedriver-mac-x64/chromedriver] found in cache
+2025-10-30 23:24:05,360 - INFO - [init_browser] - ChromeDriver initialized with webdriver-manager
+2025-10-30 23:24:05,370 - INFO - [init_browser] - Browser initialized successfully
+2025-10-30 23:24:05,372 - INFO - [send_whatsapp_message] - Navigating to WhatsApp Web: https://web.whatsapp.com/send?phone=256706272481&text=Good%20morning
+2025-10-30 23:24:05,372 - INFO - [navigate_to] - Navigating to: https://web.whatsapp.com/send?phone=256706272481&text=Good%20morning
+2025-10-30 23:24:07,649 - INFO - [navigate_to] - Successfully navigated to: https://web.whatsapp.com/send?phone=256706272481&text=Good%20morning
+2025-10-30 23:24:09,654 - INFO - [send_whatsapp_message] - Waiting 30 seconds for WhatsApp Web to load...
+2025-10-30 23:24:39,657 - INFO - [send_whatsapp_message] - Checking for WhatsApp Web login verification...
+2025-10-30 23:24:39,657 - INFO - [find_element] - Finding element: xpath=//span[@data-icon="send"] (timeout: 10s)
+2025-10-30 23:24:49,941 - ERROR - [find_element] - Element not found: //span[@data-icon="send"] - Message: 
+Stacktrace:
+0   chromedriver                        0x000000010fa9a108 chromedriver + 6119688
+1   chromedriver                        0x000000010fa9180a chromedriver + 6084618
+2   chromedriver                        0x000000010f52d1a6 chromedriver + 430502
+3   chromedriver                        0x000000010f57f8a1 chromedriver + 768161
+4   chromedriver                        0x000000010f57fb61 chromedriver + 768865
+5   chromedriver                        0x000000010f5d0034 chromedriver + 1097780
+6   chromedriver                        0x000000010f5a5e2d chromedriver + 925229
+7   chromedriver                        0x000000010f5cd378 chromedriver + 1086328
+8   chromedriver                        0x000000010f5a5bd3 chromedriver + 924627
+9   chromedriver                        0x000000010f571c0b chromedriver + 711691
+10  chromedriver                        0x000000010f5728d1 chromedriver + 714961
+11  chromedriver                        0x000000010fa575d0 chromedriver + 5846480
+12  chromedriver                        0x000000010fa5b865 chromedriver + 5863525
+13  chromedriver                        0x000000010fa32da7 chromedriver + 5696935
+14  chromedriver                        0x000000010fa5c2ff chromedriver + 5866239
+15  chromedriver                        0x000000010fa22204 chromedriver + 5628420
+16  chromedriver                        0x000000010fa7e828 chromedriver + 6006824
+17  chromedriver                        0x000000010fa7e9ed chromedriver + 6007277
+18  chromedriver                        0x000000010fa913e1 chromedriver + 6083553
+19  libsystem_pthread.dylib             0x00007ff8130bc1d3 _pthread_start + 125
+20  libsystem_pthread.dylib             0x00007ff8130b7bd3 thread_start + 15
+
+2025-10-30 23:24:49,942 - INFO - [send_whatsapp_message] - Send button not found, attempting Enter key fallback
+2025-10-30 23:24:52,536 - INFO - [send_whatsapp_message] - WhatsApp message sent to 256706272481
+2025-10-30 23:24:52,537 - INFO - [cleanup] - Starting cleanup...
+2025-10-30 23:24:52,537 - INFO - [cleanup] - ============================================================
+2025-10-30 23:24:52,537 - INFO - [cleanup] - Agent cleanup complete
+2025-10-30 23:24:52,537 - INFO - [cleanup] - ============================================================
+2025-10-30 23:28:28,957 - INFO - [__init__] - ============================================================
+2025-10-30 23:28:28,957 - INFO - [__init__] - Unified Automation Agent Initialized
+2025-10-30 23:28:28,957 - INFO - [__init__] - System: Darwin
+2025-10-30 23:28:28,958 - INFO - [__init__] - Timestamp: 2025-10-30T23:28:28.958060
+2025-10-30 23:28:28,958 - INFO - [__init__] - ============================================================
+2025-10-30 23:28:28,958 - INFO - [send_whatsapp_message] - Preparing to send WhatsApp message to: 256706272481
+2025-10-30 23:28:28,958 - INFO - [init_browser] - Initializing browser...
+2025-10-30 23:28:28,958 - INFO - [init_browser] - Using Chrome profile directory: /Users/esthermboa/.soko24_automation/chrome-profile
+2025-10-30 23:28:28,959 - INFO - [log] - ====== WebDriver manager ======
+2025-10-30 23:28:29,302 - INFO - [log] - Get LATEST chromedriver version for google-chrome
+2025-10-30 23:28:29,608 - INFO - [log] - Get LATEST chromedriver version for google-chrome
+2025-10-30 23:28:30,042 - INFO - [log] - Driver [/Users/esthermboa/.wdm/drivers/chromedriver/mac64/141.0.7390.122/chromedriver-mac-x64/chromedriver] found in cache
+2025-10-30 23:28:31,828 - INFO - [init_browser] - ChromeDriver initialized with webdriver-manager
+2025-10-30 23:28:31,935 - INFO - [init_browser] - Browser initialized successfully
+2025-10-30 23:28:31,937 - INFO - [send_whatsapp_message] - Navigating to WhatsApp Web: https://web.whatsapp.com/send?phone=256706272481&text=Good%20morning
+2025-10-30 23:28:31,937 - INFO - [navigate_to] - Navigating to: https://web.whatsapp.com/send?phone=256706272481&text=Good%20morning
+2025-10-30 23:28:34,003 - INFO - [navigate_to] - Successfully navigated to: https://web.whatsapp.com/send?phone=256706272481&text=Good%20morning
+2025-10-30 23:28:36,008 - INFO - [send_whatsapp_message] - Waiting 30 seconds for WhatsApp Web to load...
+2025-10-30 23:29:06,009 - INFO - [send_whatsapp_message] - Checking for WhatsApp Web login verification...
+2025-10-30 23:29:06,009 - INFO - [find_element] - Finding element: css selector=button[aria-label='Send'] (timeout: 5s)
+2025-10-30 23:29:11,156 - ERROR - [find_element] - Element not found: button[aria-label='Send'] - Message: 
+Stacktrace:
+0   chromedriver                        0x0000000102b2f108 chromedriver + 6119688
+1   chromedriver                        0x0000000102b2680a chromedriver + 6084618
+2   chromedriver                        0x00000001025c21a6 chromedriver + 430502
+3   chromedriver                        0x00000001026148a1 chromedriver + 768161
+4   chromedriver                        0x0000000102614b61 chromedriver + 768865
+5   chromedriver                        0x0000000102665034 chromedriver + 1097780
+6   chromedriver                        0x000000010263ae2d chromedriver + 925229
+7   chromedriver                        0x0000000102662378 chromedriver + 1086328
+8   chromedriver                        0x000000010263abd3 chromedriver + 924627
+9   chromedriver                        0x0000000102606c0b chromedriver + 711691
+10  chromedriver                        0x00000001026078d1 chromedriver + 714961
+11  chromedriver                        0x0000000102aec5d0 chromedriver + 5846480
+12  chromedriver                        0x0000000102af0865 chromedriver + 5863525
+13  chromedriver                        0x0000000102ac7da7 chromedriver + 5696935
+14  chromedriver                        0x0000000102af12ff chromedriver + 5866239
+15  chromedriver                        0x0000000102ab7204 chromedriver + 5628420
+16  chromedriver                        0x0000000102b13828 chromedriver + 6006824
+17  chromedriver                        0x0000000102b139ed chromedriver + 6007277
+18  chromedriver                        0x0000000102b263e1 chromedriver + 6083553
+19  libsystem_pthread.dylib             0x00007ff8130bc1d3 _pthread_start + 125
+20  libsystem_pthread.dylib             0x00007ff8130b7bd3 thread_start + 15
+
+2025-10-30 23:29:11,156 - INFO - [find_element] - Finding element: css selector=button[data-testid='compose-btn-send'] (timeout: 5s)
+2025-10-30 23:29:16,291 - ERROR - [find_element] - Element not found: button[data-testid='compose-btn-send'] - Message: 
+Stacktrace:
+0   chromedriver                        0x0000000102b2f108 chromedriver + 6119688
+1   chromedriver                        0x0000000102b2680a chromedriver + 6084618
+2   chromedriver                        0x00000001025c21a6 chromedriver + 430502
+3   chromedriver                        0x00000001026148a1 chromedriver + 768161
+4   chromedriver                        0x0000000102614b61 chromedriver + 768865
+5   chromedriver                        0x0000000102665034 chromedriver + 1097780
+6   chromedriver                        0x000000010263ae2d chromedriver + 925229
+7   chromedriver                        0x0000000102662378 chromedriver + 1086328
+8   chromedriver                        0x000000010263abd3 chromedriver + 924627
+9   chromedriver                        0x0000000102606c0b chromedriver + 711691
+10  chromedriver                        0x00000001026078d1 chromedriver + 714961
+11  chromedriver                        0x0000000102aec5d0 chromedriver + 5846480
+12  chromedriver                        0x0000000102af0865 chromedriver + 5863525
+13  chromedriver                        0x0000000102ac7da7 chromedriver + 5696935
+14  chromedriver                        0x0000000102af12ff chromedriver + 5866239
+15  chromedriver                        0x0000000102ab7204 chromedriver + 5628420
+16  chromedriver                        0x0000000102b13828 chromedriver + 6006824
+17  chromedriver                        0x0000000102b139ed chromedriver + 6007277
+18  chromedriver                        0x0000000102b263e1 chromedriver + 6083553
+19  libsystem_pthread.dylib             0x00007ff8130bc1d3 _pthread_start + 125
+20  libsystem_pthread.dylib             0x00007ff8130b7bd3 thread_start + 15
+
+2025-10-30 23:29:16,292 - INFO - [find_element] - Finding element: xpath=//span[@data-icon='send'] (timeout: 5s)
+2025-10-30 23:29:21,432 - ERROR - [find_element] - Element not found: //span[@data-icon='send'] - Message: 
+Stacktrace:
+0   chromedriver                        0x0000000102b2f108 chromedriver + 6119688
+1   chromedriver                        0x0000000102b2680a chromedriver + 6084618
+2   chromedriver                        0x00000001025c21a6 chromedriver + 430502
+3   chromedriver                        0x00000001026148a1 chromedriver + 768161
+4   chromedriver                        0x0000000102614b61 chromedriver + 768865
+5   chromedriver                        0x0000000102665034 chromedriver + 1097780
+6   chromedriver                        0x000000010263ae2d chromedriver + 925229
+7   chromedriver                        0x0000000102662378 chromedriver + 1086328
+8   chromedriver                        0x000000010263abd3 chromedriver + 924627
+9   chromedriver                        0x0000000102606c0b chromedriver + 711691
+10  chromedriver                        0x00000001026078d1 chromedriver + 714961
+11  chromedriver                        0x0000000102aec5d0 chromedriver + 5846480
+12  chromedriver                        0x0000000102af0865 chromedriver + 5863525
+13  chromedriver                        0x0000000102ac7da7 chromedriver + 5696935
+14  chromedriver                        0x0000000102af12ff chromedriver + 5866239
+15  chromedriver                        0x0000000102ab7204 chromedriver + 5628420
+16  chromedriver                        0x0000000102b13828 chromedriver + 6006824
+17  chromedriver                        0x0000000102b139ed chromedriver + 6007277
+18  chromedriver                        0x0000000102b263e1 chromedriver + 6083553
+19  libsystem_pthread.dylib             0x00007ff8130bc1d3 _pthread_start + 125
+20  libsystem_pthread.dylib             0x00007ff8130b7bd3 thread_start + 15
+
+2025-10-30 23:29:21,432 - INFO - [send_whatsapp_message] - Send button not found, attempting Enter key fallback
+2025-10-30 23:29:21,432 - INFO - [find_element] - Finding element: xpath=//div[@data-testid='conversation-compose-box-input' and @contenteditable='true'] (timeout: 5s)
+2025-10-30 23:29:26,590 - ERROR - [find_element] - Element not found: //div[@data-testid='conversation-compose-box-input' and @contenteditable='true'] - Message: 
+Stacktrace:
+0   chromedriver                        0x0000000102b2f108 chromedriver + 6119688
+1   chromedriver                        0x0000000102b2680a chromedriver + 6084618
+2   chromedriver                        0x00000001025c21a6 chromedriver + 430502
+3   chromedriver                        0x00000001026148a1 chromedriver + 768161
+4   chromedriver                        0x0000000102614b61 chromedriver + 768865
+5   chromedriver                        0x0000000102665034 chromedriver + 1097780
+6   chromedriver                        0x000000010263ae2d chromedriver + 925229
+7   chromedriver                        0x0000000102662378 chromedriver + 1086328
+8   chromedriver                        0x000000010263abd3 chromedriver + 924627
+9   chromedriver                        0x0000000102606c0b chromedriver + 711691
+10  chromedriver                        0x00000001026078d1 chromedriver + 714961
+11  chromedriver                        0x0000000102aec5d0 chromedriver + 5846480
+12  chromedriver                        0x0000000102af0865 chromedriver + 5863525
+13  chromedriver                        0x0000000102ac7da7 chromedriver + 5696935
+14  chromedriver                        0x0000000102af12ff chromedriver + 5866239
+15  chromedriver                        0x0000000102ab7204 chromedriver + 5628420
+16  chromedriver                        0x0000000102b13828 chromedriver + 6006824
+17  chromedriver                        0x0000000102b139ed chromedriver + 6007277
+18  chromedriver                        0x0000000102b263e1 chromedriver + 6083553
+19  libsystem_pthread.dylib             0x00007ff8130bc1d3 _pthread_start + 125
+20  libsystem_pthread.dylib             0x00007ff8130b7bd3 thread_start + 15
+
+2025-10-30 23:29:29,206 - INFO - [send_whatsapp_message] - WhatsApp message sent to 256706272481
+2025-10-30 23:29:29,207 - INFO - [cleanup] - Starting cleanup...
+2025-10-30 23:29:29,207 - INFO - [cleanup] - ============================================================
+2025-10-30 23:29:29,207 - INFO - [cleanup] - Agent cleanup complete
+2025-10-30 23:29:29,207 - INFO - [cleanup] - ============================================================

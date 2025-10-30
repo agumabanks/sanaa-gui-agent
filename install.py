@@ -62,7 +62,8 @@ def install_dependencies():
         "webdriver-manager>=4.0.0",
         "opencv-python>=4.8.0",
         "numpy>=1.24.0",
-        "cryptography>=41.0.0"
+        "cryptography>=41.0.0",
+        "scikit-learn>=1.2.0"
     ]
 
     # Optional dependencies
@@ -166,7 +167,7 @@ def setup_directories():
                 "window_size": [1920, 1080],
                 "timeout": 30,
                 "headless_mode": False,
-                "user_data_dir": null
+                "user_data_dir": None
             },
             "performance": {
                 "monitoring_enabled": True,
@@ -175,7 +176,7 @@ def setup_directories():
             },
             "security": {
                 "encryption_enabled": True,
-                "secure_credentials": true
+                "secure_credentials": True
             }
         }
 
