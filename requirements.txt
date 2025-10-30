@@ -18,6 +18,7 @@ pywhatkit>=5.4                 # WhatsApp messaging support
 
 # ============= SYSTEM UTILITIES =============
 psutil>=5.9.0                  # System and process utilities
+PyYAML>=6.0                    # Configuration parsing
 
 # ============= SECURITY & ENCRYPTION =============
 cryptography>=41.0.0           # Encryption and security

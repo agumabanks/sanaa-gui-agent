@@ -1,0 +1,26 @@
+bulk:
+  max_concurrent: 8
+  retry_attempts: 3
+  retry_delay_seconds: 15
+
+governance:
+  cpu_high_pct: 85
+  mem_high_pct: 85
+  window_s: 30
+  pause_after_error_burst:
+    threshold: 10
+    duration_s: 60
+  human_review_after_pause_bursts: 3
+
+telemetry:
+  sample_interval_s: 2
+  log_interval_s: 10
+
+persistence:
+  db_path: state.db
+  gc_completed_after_days: 7
+
+escalation:
+  enabled: true
+  webhook_url: "http://localhost:8080/hook"
+  email_to: "ops@example.local"
